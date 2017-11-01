@@ -1,0 +1,52 @@
+﻿@model fi.retorch.com.Areas.Import.Models.ImportConfigurationModel
+@{
+
+}
+
+<h2>Import Transactions</h2>
+
+@using (Html.BeginForm("Preview", "Home", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Configure Import</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AccountId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.AccountId, (SelectList)ViewBag.Accounts, String.Empty, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AccountId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2 text-right">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.HasHeaderRow)
+                        @Html.ValidationMessageFor(model => model.HasHeaderRow, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @Html.LabelFor(model => model.HasHeaderRow, htmlAttributes: new { @class = "col-md-10" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ImportFile, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.EditorFor(model => model.ImportFile, new { htmlAttributes = new { @class = "form-control" } })*@
+                    <input type="file" id="FileName" name="ImportFile" />
+                    @Html.ValidationMessageFor(model => model.ImportFile, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Preview" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+  <mvcSiteMapNode title="Home" controller="Home" action="Index" route="Default" changeFrequency="Always" updatePriority="Normal">
+    
+    <mvcSiteMapNode title="Dashboard" area="Dashboard" controller="Home" action="Index" route="Dashboard_default">
+      <mvcSiteMapNode title="Accounts" controller="Accounts" action="Index">
+        <mvcSiteMapNode title="Create" action="Create" />
+        <mvcSiteMapNode title="Edit" action="Edit" preservedRouteParameters="id" />
+        <mvcSiteMapNode title="Delete" action="Delete" preservedRouteParameters="id" />
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Transactions" controller="Transactions" action="Index">
+        <mvcSiteMapNode title="Create" action="Create" />
+        <mvcSiteMapNode title="Edit" action="Edit" preservedRouteParameters="id" />
+        <mvcSiteMapNode title="Delete" action="Delete" preservedRouteParameters="id" />
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Reminders" controller="Reminders" action="Index">
+        <mvcSiteMapNode title="Create" action="Create" />
+        <mvcSiteMapNode title="Edit" action="Edit" preservedRouteParameters="id" />
+        <mvcSiteMapNode title="Delete" action="Delete" preservedRouteParameters="id" />
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Settings" controller="Home" action="Settings">
+        <mvcSiteMapNode title="Category Groups" controller="CategoryGroups" action="Index">
+          <mvcSiteMapNode title="Create" action="Create" />
+          <mvcSiteMapNode title="Edit" action="Edit" preservedRouteParameters="id" />
+          <mvcSiteMapNode title="Delete" action="Delete" preservedRouteParameters="id" />
+        </mvcSiteMapNode>
+        <mvcSiteMapNode title="Categories" controller="Categories" action="Index">
+          <mvcSiteMapNode title="Create" action="Create" />
+          <mvcSiteMapNode title="Edit" action="Edit" preservedRouteParameters="id" />
+          <mvcSiteMapNode title="Delete" action="Delete" preservedRouteParameters="id" />
+        </mvcSiteMapNode>
+        <mvcSiteMapNode title="Account Types" controller="AccountTypes" action="Index">
+          <mvcSiteMapNode title="Create" action="Create" />
+          <mvcSiteMapNode title="Edit" action="Edit" preservedRouteParameters="id" />
+          <mvcSiteMapNode title="Delete" action="Delete" preservedRouteParameters="id" />
+        </mvcSiteMapNode>
+      </mvcSiteMapNode>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Import" area="Import" controller="Import" action="Index" route="Import_default">
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Legacy Import" area="Legacy" controller="Import" action="Index" route="Legacy_default">
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Reports" area="Reports" controller="Home" action="Index" route="Reports_default">
+      <mvcSiteMapNode title="Monthly Budget Review" controller="BudgetReview" action="Monthly" />
+      <mvcSiteMapNode title="Annual Budget Review" controller="BudgetReview" action="Annual" />
+      <mvcSiteMapNode title="Monthly Net Worth Changes" controller="NetWorth" action="Monthly" />
+      <mvcSiteMapNode title="Annual Net Worth Changes" controller="NetWorth" action="Annual" />
+      <mvcSiteMapNode title="Instant Daily Net Worth" controller="NetWorth" action="Index" />
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Wizard" area="Wizard" controller="Home" action="Index" route="Wizard_default">
+    </mvcSiteMapNode>
+    
+    <mvcSiteMapNode title="Configuration" area="Configuration" controller="Home" action="Index" route="Configuration_default">
+      <mvcSiteMapNode title="Reminder Types" controller="ReminderTypes" action="Index">
+        <mvcSiteMapNode title="Create" action="Create" />
+        <mvcSiteMapNode title="Edit" action="Edit" preservedRouteParameters="id" />
+        <mvcSiteMapNode title="Delete" action="Delete" preservedRouteParameters="id" />
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Reminder Schedules" controller="ReminderSchedules" action="Index">
+        <mvcSiteMapNode title="Create" action="Create" />
+        <mvcSiteMapNode title="Edit" action="Edit" preservedRouteParameters="id" />
+        <mvcSiteMapNode title="Delete" action="Delete" preservedRouteParameters="id" />
+      </mvcSiteMapNode>
+    </mvcSiteMapNode>
+  </mvcSiteMapNode>
+</mvcSiteMap>

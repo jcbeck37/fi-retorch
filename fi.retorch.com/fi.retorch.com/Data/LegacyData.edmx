@@ -1,0 +1,590 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LegacyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="act_account_categories">
+          <Key>
+            <PropertyRef Name="account_id" />
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="account_id" Type="int" Nullable="false" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="act_accounts">
+          <Key>
+            <PropertyRef Name="account_id" />
+          </Key>
+          <Property Name="account_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="type_id" Type="int" />
+          <Property Name="account_name" Type="varchar" MaxLength="50" />
+          <Property Name="start_date" Type="datetime" />
+          <Property Name="initial_balance" Type="int" />
+          <Property Name="isActive" Type="tinyint" Nullable="false" />
+          <Property Name="dispOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="act_categories">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="account_id" Type="int" />
+          <Property Name="category_name" Type="varchar" MaxLength="50" />
+          <Property Name="isActive" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="act_links">
+          <Key>
+            <PropertyRef Name="link_id" />
+          </Key>
+          <Property Name="link_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="link_url" Type="varchar" MaxLength="100" />
+          <Property Name="link_title" Type="varchar" MaxLength="50" />
+          <Property Name="link_inactive" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="act_reminders">
+          <Key>
+            <PropertyRef Name="reminder_id" />
+          </Key>
+          <Property Name="reminder_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="account_id" Type="int" />
+          <Property Name="category_id" Type="int" />
+          <Property Name="schedule_id" Type="int" />
+          <Property Name="start_date" Type="datetime" />
+          <Property Name="end_date" Type="datetime" />
+          <Property Name="reminder_name" Type="varchar" MaxLength="100" />
+          <Property Name="amount" Type="int" />
+          <Property Name="interest_rate" Type="decimal" Precision="8" Scale="6" />
+          <Property Name="positive" Type="tinyint" Nullable="false" />
+          <Property Name="last_posted" Type="datetime" />
+        </EntityType>
+        <EntityType Name="act_schedules">
+          <Key>
+            <PropertyRef Name="schedule_id" />
+          </Key>
+          <Property Name="schedule_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="schedule_name" Type="varchar" MaxLength="50" />
+          <Property Name="date_part" Type="varchar" MaxLength="4" />
+          <Property Name="date_value" Type="int" />
+        </EntityType>
+        <EntityType Name="act_transactions">
+          <Key>
+            <PropertyRef Name="transaction_id" />
+          </Key>
+          <Property Name="transaction_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="account_id" Type="int" />
+          <Property Name="category_id" Type="int" />
+          <Property Name="smt_id" Type="int" />
+          <Property Name="transaction_name" Type="varchar" MaxLength="100" />
+          <Property Name="transaction_date" Type="datetime" />
+          <Property Name="amount" Type="int" />
+          <Property Name="positive" Type="tinyint" Nullable="false" />
+          <Property Name="registered" Type="tinyint" Nullable="false" />
+          <Property Name="register_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="act_types">
+          <Key>
+            <PropertyRef Name="type_id" />
+          </Key>
+          <Property Name="type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type_name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ng_users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="time_stamp" Type="datetime" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="display" Type="varchar" MaxLength="100" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="signature" Type="varchar" MaxLength="500" />
+          <Property Name="rss_password" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="current_list" Type="int" />
+          <Property Name="option_clear" Type="int" Nullable="false" />
+          <Property Name="bdy_coord" Type="varchar" MaxLength="15" />
+          <Property Name="locked" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_act_accounts_act_types">
+          <End Role="act_types" Type="Self.act_types" Multiplicity="0..1" />
+          <End Role="act_accounts" Type="Self.act_accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="act_types">
+              <PropertyRef Name="type_id" />
+            </Principal>
+            <Dependent Role="act_accounts">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_act_accounts_ng_users">
+          <End Role="ng_users" Type="Self.ng_users" Multiplicity="0..1" />
+          <End Role="act_accounts" Type="Self.act_accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ng_users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="act_accounts">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_act_links_ng_users">
+          <End Role="ng_users" Type="Self.ng_users" Multiplicity="0..1" />
+          <End Role="act_links" Type="Self.act_links" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ng_users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="act_links">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_act_reminders_act_accounts">
+          <End Role="act_accounts" Type="Self.act_accounts" Multiplicity="0..1" />
+          <End Role="act_reminders" Type="Self.act_reminders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="act_accounts">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="act_reminders">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_act_reminders_act_schedules">
+          <End Role="act_schedules" Type="Self.act_schedules" Multiplicity="0..1" />
+          <End Role="act_reminders" Type="Self.act_reminders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="act_schedules">
+              <PropertyRef Name="schedule_id" />
+            </Principal>
+            <Dependent Role="act_reminders">
+              <PropertyRef Name="schedule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_act_transactions_act_accounts">
+          <End Role="act_accounts" Type="Self.act_accounts" Multiplicity="0..1" />
+          <End Role="act_transactions" Type="Self.act_transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="act_accounts">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="act_transactions">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LegacyModelStoreContainer">
+          <EntitySet Name="act_account_categories" EntityType="Self.act_account_categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="act_accounts" EntityType="Self.act_accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="act_categories" EntityType="Self.act_categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="act_links" EntityType="Self.act_links" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="act_reminders" EntityType="Self.act_reminders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="act_schedules" EntityType="Self.act_schedules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="act_transactions" EntityType="Self.act_transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="act_types" EntityType="Self.act_types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ng_users" EntityType="Self.ng_users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_act_accounts_act_types" Association="Self.FK_act_accounts_act_types">
+            <End Role="act_types" EntitySet="act_types" />
+            <End Role="act_accounts" EntitySet="act_accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_act_accounts_ng_users" Association="Self.FK_act_accounts_ng_users">
+            <End Role="ng_users" EntitySet="ng_users" />
+            <End Role="act_accounts" EntitySet="act_accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_act_links_ng_users" Association="Self.FK_act_links_ng_users">
+            <End Role="ng_users" EntitySet="ng_users" />
+            <End Role="act_links" EntitySet="act_links" />
+          </AssociationSet>
+          <AssociationSet Name="FK_act_reminders_act_accounts" Association="Self.FK_act_reminders_act_accounts">
+            <End Role="act_accounts" EntitySet="act_accounts" />
+            <End Role="act_reminders" EntitySet="act_reminders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_act_reminders_act_schedules" Association="Self.FK_act_reminders_act_schedules">
+            <End Role="act_schedules" EntitySet="act_schedules" />
+            <End Role="act_reminders" EntitySet="act_reminders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_act_transactions_act_accounts" Association="Self.FK_act_transactions_act_accounts">
+            <End Role="act_accounts" EntitySet="act_accounts" />
+            <End Role="act_transactions" EntitySet="act_transactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LegacyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="act_account_categories">
+          <Key>
+            <PropertyRef Name="account_id" />
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="account_id" Type="Int32" Nullable="false" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="act_accounts">
+          <Key>
+            <PropertyRef Name="account_id" />
+          </Key>
+          <Property Name="account_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="type_id" Type="Int32" />
+          <Property Name="account_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="start_date" Type="DateTime" Precision="3" />
+          <Property Name="initial_balance" Type="Int32" />
+          <Property Name="isActive" Type="Byte" Nullable="false" />
+          <Property Name="dispOrder" Type="Int32" />
+          <NavigationProperty Name="act_types" Relationship="Self.FK_act_accounts_act_types" FromRole="act_accounts" ToRole="act_types" />
+          <NavigationProperty Name="ng_users" Relationship="Self.FK_act_accounts_ng_users" FromRole="act_accounts" ToRole="ng_users" />
+          <NavigationProperty Name="act_reminders" Relationship="Self.FK_act_reminders_act_accounts" FromRole="act_accounts" ToRole="act_reminders" />
+          <NavigationProperty Name="act_transactions" Relationship="Self.FK_act_transactions_act_accounts" FromRole="act_accounts" ToRole="act_transactions" />
+        </EntityType>
+        <EntityType Name="act_categories">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="account_id" Type="Int32" />
+          <Property Name="category_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="act_reminders">
+          <Key>
+            <PropertyRef Name="reminder_id" />
+          </Key>
+          <Property Name="reminder_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="account_id" Type="Int32" />
+          <Property Name="category_id" Type="Int32" />
+          <Property Name="schedule_id" Type="Int32" />
+          <Property Name="start_date" Type="DateTime" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Precision="3" />
+          <Property Name="reminder_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Int32" />
+          <Property Name="interest_rate" Type="Decimal" Precision="8" Scale="6" />
+          <Property Name="positive" Type="Byte" Nullable="false" />
+          <Property Name="last_posted" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="act_accounts" Relationship="Self.FK_act_reminders_act_accounts" FromRole="act_reminders" ToRole="act_accounts" />
+          <NavigationProperty Name="act_schedules" Relationship="Self.FK_act_reminders_act_schedules" FromRole="act_reminders" ToRole="act_schedules" />
+        </EntityType>
+        <EntityType Name="act_schedules">
+          <Key>
+            <PropertyRef Name="schedule_id" />
+          </Key>
+          <Property Name="schedule_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="schedule_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_part" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="date_value" Type="Int32" />
+          <NavigationProperty Name="act_reminders" Relationship="Self.FK_act_reminders_act_schedules" FromRole="act_schedules" ToRole="act_reminders" />
+        </EntityType>
+        <EntityType Name="act_transactions">
+          <Key>
+            <PropertyRef Name="transaction_id" />
+          </Key>
+          <Property Name="transaction_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="account_id" Type="Int32" />
+          <Property Name="category_id" Type="Int32" />
+          <Property Name="smt_id" Type="Int32" />
+          <Property Name="transaction_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="transaction_date" Type="DateTime" Precision="3" />
+          <Property Name="amount" Type="Int32" />
+          <Property Name="positive" Type="Byte" Nullable="false" />
+          <Property Name="registered" Type="Byte" Nullable="false" />
+          <Property Name="register_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="act_accounts" Relationship="Self.FK_act_transactions_act_accounts" FromRole="act_transactions" ToRole="act_accounts" />
+        </EntityType>
+        <EntityType Name="act_types">
+          <Key>
+            <PropertyRef Name="type_id" />
+          </Key>
+          <Property Name="type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="act_accounts" Relationship="Self.FK_act_accounts_act_types" FromRole="act_types" ToRole="act_accounts" />
+        </EntityType>
+        <EntityType Name="ng_users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="time_stamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="display" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="signature" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="rss_password" Type="Guid" Nullable="false" />
+          <Property Name="current_list" Type="Int32" />
+          <Property Name="option_clear" Type="Int32" Nullable="false" />
+          <Property Name="bdy_coord" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="locked" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="act_accounts" Relationship="Self.FK_act_accounts_ng_users" FromRole="ng_users" ToRole="act_accounts" />
+          <NavigationProperty Name="act_links" Relationship="LegacyModel.FK_act_links_ng_users" FromRole="ng_users" ToRole="act_links" />
+        </EntityType>
+        <Association Name="FK_act_accounts_act_types">
+          <End Role="act_types" Type="Self.act_types" Multiplicity="0..1" />
+          <End Role="act_accounts" Type="Self.act_accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="act_types">
+              <PropertyRef Name="type_id" />
+            </Principal>
+            <Dependent Role="act_accounts">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_act_accounts_ng_users">
+          <End Role="ng_users" Type="Self.ng_users" Multiplicity="0..1" />
+          <End Role="act_accounts" Type="Self.act_accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ng_users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="act_accounts">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_act_reminders_act_accounts">
+          <End Role="act_accounts" Type="Self.act_accounts" Multiplicity="0..1" />
+          <End Role="act_reminders" Type="Self.act_reminders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="act_accounts">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="act_reminders">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_act_transactions_act_accounts">
+          <End Role="act_accounts" Type="Self.act_accounts" Multiplicity="0..1" />
+          <End Role="act_transactions" Type="Self.act_transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="act_accounts">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="act_transactions">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_act_reminders_act_schedules">
+          <End Role="act_schedules" Type="Self.act_schedules" Multiplicity="0..1" />
+          <End Role="act_reminders" Type="Self.act_reminders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="act_schedules">
+              <PropertyRef Name="schedule_id" />
+            </Principal>
+            <Dependent Role="act_reminders">
+              <PropertyRef Name="schedule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LegacyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="act_account_categories" EntityType="Self.act_account_categories" />
+          <EntitySet Name="act_accounts" EntityType="Self.act_accounts" />
+          <EntitySet Name="act_categories" EntityType="Self.act_categories" />
+          <EntitySet Name="act_reminders" EntityType="Self.act_reminders" />
+          <EntitySet Name="act_schedules" EntityType="Self.act_schedules" />
+          <EntitySet Name="act_transactions" EntityType="Self.act_transactions" />
+          <EntitySet Name="act_types" EntityType="Self.act_types" />
+          <EntitySet Name="ng_users" EntityType="Self.ng_users" />
+          <AssociationSet Name="FK_act_accounts_act_types" Association="Self.FK_act_accounts_act_types">
+            <End Role="act_types" EntitySet="act_types" />
+            <End Role="act_accounts" EntitySet="act_accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_act_accounts_ng_users" Association="Self.FK_act_accounts_ng_users">
+            <End Role="ng_users" EntitySet="ng_users" />
+            <End Role="act_accounts" EntitySet="act_accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_act_reminders_act_accounts" Association="Self.FK_act_reminders_act_accounts">
+            <End Role="act_accounts" EntitySet="act_accounts" />
+            <End Role="act_reminders" EntitySet="act_reminders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_act_transactions_act_accounts" Association="Self.FK_act_transactions_act_accounts">
+            <End Role="act_accounts" EntitySet="act_accounts" />
+            <End Role="act_transactions" EntitySet="act_transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_act_reminders_act_schedules" Association="Self.FK_act_reminders_act_schedules">
+            <End Role="act_schedules" EntitySet="act_schedules" />
+            <End Role="act_reminders" EntitySet="act_reminders" />
+          </AssociationSet>
+          <EntitySet Name="act_links" EntityType="LegacyModel.act_links" />
+          <AssociationSet Name="FK_act_links_ng_users" Association="LegacyModel.FK_act_links_ng_users">
+            <End Role="ng_users" EntitySet="ng_users" />
+            <End Role="act_links" EntitySet="act_links" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="act_links">
+          <Key>
+            <PropertyRef Name="link_id" />
+          </Key>
+          <Property Name="link_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="link_url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="link_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="link_inactive" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="ng_users" Relationship="LegacyModel.FK_act_links_ng_users" FromRole="act_links" ToRole="ng_users" />
+        </EntityType>
+        <Association Name="FK_act_links_ng_users">
+          <End Type="LegacyModel.ng_users" Role="ng_users" Multiplicity="0..1" />
+          <End Type="LegacyModel.act_links" Role="act_links" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ng_users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="act_links">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LegacyModelStoreContainer" CdmEntityContainer="LegacyEntities">
+          <EntitySetMapping Name="act_account_categories">
+            <EntityTypeMapping TypeName="LegacyModel.act_account_categories">
+              <MappingFragment StoreEntitySet="act_account_categories">
+                <ScalarProperty Name="account_id" ColumnName="account_id" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="act_accounts">
+            <EntityTypeMapping TypeName="LegacyModel.act_accounts">
+              <MappingFragment StoreEntitySet="act_accounts">
+                <ScalarProperty Name="account_id" ColumnName="account_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="account_name" ColumnName="account_name" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="initial_balance" ColumnName="initial_balance" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="dispOrder" ColumnName="dispOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="act_categories">
+            <EntityTypeMapping TypeName="LegacyModel.act_categories">
+              <MappingFragment StoreEntitySet="act_categories">
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="account_id" ColumnName="account_id" />
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="act_reminders">
+            <EntityTypeMapping TypeName="LegacyModel.act_reminders">
+              <MappingFragment StoreEntitySet="act_reminders">
+                <ScalarProperty Name="reminder_id" ColumnName="reminder_id" />
+                <ScalarProperty Name="account_id" ColumnName="account_id" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="schedule_id" ColumnName="schedule_id" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="reminder_name" ColumnName="reminder_name" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="interest_rate" ColumnName="interest_rate" />
+                <ScalarProperty Name="positive" ColumnName="positive" />
+                <ScalarProperty Name="last_posted" ColumnName="last_posted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="act_schedules">
+            <EntityTypeMapping TypeName="LegacyModel.act_schedules">
+              <MappingFragment StoreEntitySet="act_schedules">
+                <ScalarProperty Name="schedule_id" ColumnName="schedule_id" />
+                <ScalarProperty Name="schedule_name" ColumnName="schedule_name" />
+                <ScalarProperty Name="date_part" ColumnName="date_part" />
+                <ScalarProperty Name="date_value" ColumnName="date_value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="act_transactions">
+            <EntityTypeMapping TypeName="LegacyModel.act_transactions">
+              <MappingFragment StoreEntitySet="act_transactions">
+                <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
+                <ScalarProperty Name="account_id" ColumnName="account_id" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="smt_id" ColumnName="smt_id" />
+                <ScalarProperty Name="transaction_name" ColumnName="transaction_name" />
+                <ScalarProperty Name="transaction_date" ColumnName="transaction_date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="positive" ColumnName="positive" />
+                <ScalarProperty Name="registered" ColumnName="registered" />
+                <ScalarProperty Name="register_date" ColumnName="register_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="act_types">
+            <EntityTypeMapping TypeName="LegacyModel.act_types">
+              <MappingFragment StoreEntitySet="act_types">
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="type_name" ColumnName="type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ng_users">
+            <EntityTypeMapping TypeName="LegacyModel.ng_users">
+              <MappingFragment StoreEntitySet="ng_users">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="time_stamp" ColumnName="time_stamp" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="display" ColumnName="display" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="signature" ColumnName="signature" />
+                <ScalarProperty Name="rss_password" ColumnName="rss_password" />
+                <ScalarProperty Name="current_list" ColumnName="current_list" />
+                <ScalarProperty Name="option_clear" ColumnName="option_clear" />
+                <ScalarProperty Name="bdy_coord" ColumnName="bdy_coord" />
+                <ScalarProperty Name="locked" ColumnName="locked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="act_links">
+            <EntityTypeMapping TypeName="LegacyModel.act_links">
+              <MappingFragment StoreEntitySet="act_links">
+                <ScalarProperty Name="link_inactive" ColumnName="link_inactive" />
+                <ScalarProperty Name="link_title" ColumnName="link_title" />
+                <ScalarProperty Name="link_url" ColumnName="link_url" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="link_id" ColumnName="link_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

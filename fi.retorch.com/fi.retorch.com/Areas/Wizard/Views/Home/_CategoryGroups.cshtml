@@ -1,0 +1,53 @@
+﻿@model fi.retorch.com.Areas.Wizard.Models.DefaultCategoryGroupList
+
+<div id="defaultCategoryGroups" class="wizard-step">
+    <h4>Step 2: Category Groups</h4>
+    <p>
+       Much like account types, these groups are really useful when it comes time to review your budget. 
+    </p>
+    <p>
+        You can still get granular with your categories, but have easier to read pie charts. We suggest the following breakdown.
+    </p>
+    <p>
+        Update them to your liking, or hit Next to keep moving. You can always make additional changes later by visiting Settings.
+    </p>
+    <p>
+        Uncheck "Create" on any that you won't use. If you choose none, we'll create just one called "All Categories."
+    </p>
+    @using (Html.BeginForm("Step2", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-9 col-md-3">
+                <input type="submit" value="Next Step" class="btn btn-default" />
+            </div>
+        </div>
+        for (var i = 0; i < Model.CategoryGroups.Count; i++)
+        {
+            <table id="user" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="text-center">Category Group: @Html.EditorFor(modelItem => Model.CategoryGroups[i].Name, new { htmlAttributes = new { @class = "form-control" } })</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="33%">@Html.EditorFor(modelItem => Model.CategoryGroups[i].IsChecked) @Html.LabelFor(modelItem => Model.CategoryGroups[i].IsChecked)</td>
+                        <td width="67%"><span class="text-muted">Uncheck if you won't use.</span></td>
+                    </tr>
+                    <tr>
+                        <td width="33%">@Html.DropDownList("TransferType", new SelectList(ViewBag.TransferTypes, "Key", "Value", Model.CategoryGroups[i].TransferType), new { @class = "form-control" }) @Html.LabelFor(modelItem => Model.CategoryGroups[i].TransferType)</td>
+                        <td width="67%"><span class="text-muted">This "Income" checkbox lets us know how to group your categories in your budget review report.</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+        <div class="form-group">
+            <div class="col-md-offset-9 col-md-3">
+                <input type="submit" value="Next Step" class="btn btn-default" />
+            </div>
+        </div>
+    }
+    <div class="clearfix"></div>
+</div>

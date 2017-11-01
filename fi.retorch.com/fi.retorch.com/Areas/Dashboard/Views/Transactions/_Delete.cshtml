@@ -1,0 +1,86 @@
+﻿@model fi.retorch.com.Areas.Dashboard.Models.TransactionModel
+
+<div class="modal-header hide">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Delete Transaction</h4>
+</div>
+
+<div class="modal-body">
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AccountName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DisplayDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisplayDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount, new { Value = Model.Amount * (Model.IsCredit ? 1 : -1) })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPosted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPosted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePosted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatePosted)
+        </dd>
+
+    </dl>
+
+    @using (Ajax.BeginForm("Delete", "Transactions", FormMethod.Post, new AjaxOptions(), new { name = "frmTransactionDelete" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.RedirectController)
+
+        <div class="form-actions no-color buttons">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </div>
+
+        <div class="modal-footer hide">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </div>
+                <div class="col-md-8 text-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

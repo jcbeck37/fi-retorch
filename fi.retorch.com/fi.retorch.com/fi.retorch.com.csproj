@@ -1,0 +1,752 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DF92413E-0C9D-4608-871C-71D418295F6C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>fi.retorch.com</RootNamespace>
+    <AssemblyName>fi.retorch.com</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44318</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.1.8.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.1.1.8.0\lib\net45\LinqKit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MvcSiteMapProvider, Version=4.6.22.0, Culture=neutral, PublicKeyToken=1923abe4657913cc, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcSiteMapProvider.MVC5.Core.4.6.22\lib\net45\MvcSiteMapProvider.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MvcSiteMapProvider.WebActivator, Version=4.6.22.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcSiteMapProvider.MVC5.4.6.22\lib\net45\MvcSiteMapProvider.WebActivator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Configuration\Code\Base\BaseController.cs" />
+    <Compile Include="Areas\Configuration\Code\Enums\ReminderType.cs" />
+    <Compile Include="Areas\Configuration\Code\Enums\ReminderSchedule.cs" />
+    <Compile Include="Areas\Configuration\Code\Enums\Setting.cs" />
+    <Compile Include="Areas\Configuration\ConfigurationAreaRegistration.cs" />
+    <Compile Include="Areas\Configuration\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Configuration\Controllers\ReminderSchedulesController.cs" />
+    <Compile Include="Areas\Configuration\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Configuration\Models\UserModel.cs" />
+    <Compile Include="Areas\Dashboard\Code\Base\BaseController.cs" />
+    <Compile Include="Areas\Dashboard\Code\Base\BaseModel.cs" />
+    <Compile Include="Areas\Dashboard\Code\Base\BaseQuerySettings.cs" />
+    <Compile Include="Areas\Dashboard\Code\Enums\CurrentBalanceUpdateAction.cs" />
+    <Compile Include="Areas\Dashboard\Code\Enums\ReminderScheduleEnum.cs" />
+    <Compile Include="Areas\Dashboard\Code\Enums\TransferTypeEnum.cs" />
+    <Compile Include="Areas\Dashboard\Code\QuerySettings\CategoryQuerySettings.cs" />
+    <Compile Include="Areas\Dashboard\Code\QuerySettings\ReminderQuerySettings.cs" />
+    <Compile Include="Areas\Dashboard\Code\QuerySettings\TransactionQuerySettings.cs" />
+    <Compile Include="Areas\Dashboard\Code\QuerySettings\AccountQuerySettings.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\AccountsController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\AccountTypesController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\BookmarksController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\CategoryGroupsController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Import\Code\Base\BaseController.cs" />
+    <Compile Include="Areas\Import\Code\Enums\TransferTypeEnum.cs" />
+    <Compile Include="Areas\Import\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Import\ImportAreaRegistration.cs" />
+    <Compile Include="Areas\Import\Models\ImportConfigurationModel.cs" />
+    <Compile Include="Areas\Import\Models\ImportPreviewModel.cs" />
+    <Compile Include="Areas\Import\Models\ImportProcessModel.cs" />
+    <Compile Include="Areas\Legacy\Code\Base\BaseController.cs" />
+    <Compile Include="Areas\Legacy\Controllers\ImportController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\RemindersController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\TransactionsController.cs" />
+    <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="Areas\Dashboard\EntityModels\AccountEntity.cs" />
+    <Compile Include="Areas\Dashboard\EntityModels\BookmarkEntity.cs" />
+    <Compile Include="Areas\Dashboard\EntityModels\CategoryEntity.cs" />
+    <Compile Include="Areas\Dashboard\EntityModels\ReminderEntity.cs" />
+    <Compile Include="Areas\Dashboard\EntityModels\TransactionEntity.cs" />
+    <Compile Include="Areas\Dashboard\Models\AccountTypeModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\AccountModel.cs" />
+    <Compile Include="Areas\Configuration\Models\ReminderScheduleModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\BookmarkModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\CategoryModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\CategoryGroupModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\DashboardModel.cs" />
+    <Compile Include="Areas\Legacy\Models\LegacyBookmarkModel.cs" />
+    <Compile Include="Areas\Legacy\Models\LegacyAccountModel.cs" />
+    <Compile Include="Areas\Legacy\Models\LegacyCategoryModel.cs" />
+    <Compile Include="Areas\Legacy\Models\LegacyReminderModel.cs" />
+    <Compile Include="Areas\Legacy\Models\LegacyTransactionModel.cs" />
+    <Compile Include="Areas\Legacy\Models\LoginModel.cs" />
+    <Compile Include="Areas\Legacy\LegacyAreaRegistration.cs" />
+    <Compile Include="Areas\Reports\EntityModels\BudgetReviewEntity.cs" />
+    <Compile Include="Areas\Reports\Models\BudgetReviewAnnualModel.cs" />
+    <Compile Include="Areas\Reports\Models\BudgetReviewMonthlyModel.cs" />
+    <Compile Include="Areas\Reports\Models\NetWorthAnnualModel.cs" />
+    <Compile Include="Areas\Reports\Models\NetWorthModel.cs" />
+    <Compile Include="Controllers\TourController.cs" />
+    <Compile Include="Data\Account.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\AccountType.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shared\MutipleSelectModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\ReminderModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\TransactionModel.cs" />
+    <Compile Include="Areas\Reports\Code\Base\BaseController.cs" />
+    <Compile Include="Areas\Reports\Code\Base\BaseQuerySettings.cs" />
+    <Compile Include="Areas\Reports\Controllers\BudgetReviewController.cs" />
+    <Compile Include="Areas\Reports\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Reports\Controllers\NetWorthController.cs" />
+    <Compile Include="Areas\Reports\EntityModels\NetWorthEntity.cs" />
+    <Compile Include="Areas\Reports\EntityModels\TransactionTotalEntity.cs" />
+    <Compile Include="Areas\Reports\Models\BudgetReviewModel.cs" />
+    <Compile Include="Areas\Reports\Models\NetWorthInstantModel.cs" />
+    <Compile Include="Areas\Reports\Models\NetWorthMonthlyModel.cs" />
+    <Compile Include="Areas\Reports\Models\TransactionTotalModel.cs" />
+    <Compile Include="Areas\Reports\ReportsAreaRegistration.cs" />
+    <Compile Include="Areas\Wizard\Code\Base\BaseController.cs" />
+    <Compile Include="Areas\Wizard\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Wizard\EntityModels\DefaultAccountTypeEntity.cs" />
+    <Compile Include="Areas\Wizard\EntityModels\DefaultCategoryEntity.cs" />
+    <Compile Include="Areas\Wizard\EntityModels\DefaultCategoryGroupEntity.cs" />
+    <Compile Include="Areas\Wizard\Models\DefaultAccountTypeList.cs" />
+    <Compile Include="Areas\Wizard\Models\DefaultCategoryList.cs" />
+    <Compile Include="Areas\Wizard\Models\DefaultCategoryGroupList.cs" />
+    <Compile Include="Areas\Wizard\WizardAreaRegistration.cs" />
+    <Compile Include="Code\Data\Roles\ApplicationRole.cs" />
+    <Compile Include="Code\Data\Roles\ApplicationRoleStore.cs" />
+    <Compile Include="Code\Data\Roles\RoleStore.cs" />
+    <Compile Include="Code\Data\Roles\ApplicationUserRoleStore.cs" />
+    <Compile Include="Code\Data\Users\IUserLockoutStore.cs" />
+    <Compile Include="Code\Data\Users\IUserTwoFactorStore.cs" />
+    <Compile Include="Code\Data\Users\UserStore.cs" />
+    <Compile Include="Code\Utilities\Authentication.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Data\AccountCategory.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\act_accounts.cs">
+      <DependentUpon>LegacyData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\act_account_categories.cs">
+      <DependentUpon>LegacyData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\act_categories.cs">
+      <DependentUpon>LegacyData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\act_links.cs">
+      <DependentUpon>LegacyData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\act_reminders.cs">
+      <DependentUpon>LegacyData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\act_schedules.cs">
+      <DependentUpon>LegacyData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\act_transactions.cs">
+      <DependentUpon>LegacyData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\act_types.cs">
+      <DependentUpon>LegacyData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\AuthData.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AuthData.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\AuthData.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AuthData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\AuthData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AuthData.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Bookmark.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Category.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CategoryGroup.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DefaultAccountType.cs">
+      <DependentUpon>DefaultData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DefaultCategory.cs">
+      <DependentUpon>DefaultData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DefaultCategoryGroup.cs">
+      <DependentUpon>DefaultData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DefaultData.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DefaultData.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DefaultData.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DefaultData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DefaultData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DefaultData.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\LegacyData.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LegacyData.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\LegacyData.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LegacyData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\LegacyData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LegacyData.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ng_users.cs">
+      <DependentUpon>LegacyData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Reminder.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ReminderSchedule.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Role.cs">
+      <DependentUpon>AuthData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Setting.cs">
+      <DependentUpon>AuthData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Transaction.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\User.cs">
+      <DependentUpon>AuthData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\UserRole.cs">
+      <DependentUpon>AuthData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\UserSetting.cs">
+      <DependentUpon>AuthData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\bootstrap\bootstrap-dialog.css" />
+    <Content Include="Content\css\bootstrap\bootstrap-theme.css" />
+    <Content Include="Content\css\bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Content\css\bootstrap\bootstrap-datepicker.css" />
+    <Content Include="Content\css\bootstrap\bootstrap-datepicker.min.css" />
+    <Content Include="Content\css\bootstrap\bootstrap.css" />
+    <Content Include="Content\css\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\css\fi.css" />
+    <Content Include="Content\img\icons\check.png" />
+    <Content Include="Content\img\icons\in.png" />
+    <Content Include="Content\css\PagedList.css" />
+    <Content Include="ConfigurationData\SiteMap.xml" />
+    <Content Include="Data\AuthData.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AuthData.edmx</DependentUpon>
+      <LastGenOutput>AuthData.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\AuthData.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AuthData.edmx</DependentUpon>
+      <LastGenOutput>AuthData.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\DataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModel.edmx</DependentUpon>
+      <LastGenOutput>DataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\DataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModel.edmx</DependentUpon>
+      <LastGenOutput>DataModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\DefaultData.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DefaultData.edmx</DependentUpon>
+      <LastGenOutput>DefaultData.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\DefaultData.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DefaultData.edmx</DependentUpon>
+      <LastGenOutput>DefaultData.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\LegacyData.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LegacyData.edmx</DependentUpon>
+      <LastGenOutput>LegacyData.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\LegacyData.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LegacyData.edmx</DependentUpon>
+      <LastGenOutput>LegacyData.cs</LastGenOutput>
+    </Content>
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\css\Site.css" />
+    <Content Include="Scripts\bootstrap\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap\bootstrap-datepicker.min.js" />
+    <EntityDeploy Include="Data\DataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Data\DataModel.edmx.diagram">
+      <DependentUpon>DataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\Dashboard\Views\web.config" />
+    <Content Include="Areas\Dashboard\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Dashboard\Views\CategoryGroups\Create.cshtml" />
+    <Content Include="Areas\Dashboard\Views\CategoryGroups\Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\CategoryGroups\Edit.cshtml" />
+    <Content Include="Areas\Dashboard\Views\CategoryGroups\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Categories\Create.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Categories\Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Categories\Edit.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Categories\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccountTypes\Create.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccountTypes\Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccountTypes\Edit.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccountTypes\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accounts\Create.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accounts\Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accounts\Edit.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accounts\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Home\Settings.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Transactions\Create.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Transactions\Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Transactions\Edit.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Transactions\Index.cshtml" />
+    <Content Include="Areas\Configuration\Views\web.config" />
+    <Content Include="Areas\Configuration\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Configuration\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Configuration\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Configuration\Views\ReminderSchedules\Create.cshtml" />
+    <Content Include="Areas\Configuration\Views\ReminderSchedules\Delete.cshtml" />
+    <Content Include="Areas\Configuration\Views\ReminderSchedules\Edit.cshtml" />
+    <Content Include="Areas\Configuration\Views\ReminderSchedules\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Reminders\Create.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Reminders\Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Reminders\Edit.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Reminders\Index.cshtml" />
+    <Content Include="Areas\Legacy\Views\Import\Index.cshtml" />
+    <Content Include="Content\css\bootstrap\bootstrap.min.css.map" />
+    <Content Include="Content\css\bootstrap\bootstrap.css.map" />
+    <Content Include="Content\css\bootstrap\bootstrap-theme.min.css.map" />
+    <Content Include="Content\css\bootstrap\bootstrap-theme.css.map" />
+    <Content Include="Areas\Dashboard\Views\Reminders\_Create.cshtml" />
+    <Content Include="Areas\Reports\Views\web.config" />
+    <Content Include="Areas\Reports\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Reports\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Reports\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\NetWorth\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Transactions\_Create.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Transactions\_Edit.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Reminders\_Edit.cshtml" />
+    <Content Include="Areas\Reports\Views\NetWorth\Monthly.cshtml" />
+    <Content Include="Areas\Wizard\Views\web.config" />
+    <Content Include="Areas\Wizard\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Wizard\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Wizard\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Wizard\Views\Home\_AccountTypes.cshtml" />
+    <Content Include="Areas\Wizard\Views\Home\Step2.cshtml" />
+    <Content Include="Areas\Wizard\Views\Home\_CategoryGroups.cshtml" />
+    <Content Include="Areas\Wizard\Views\Home\Step1.cshtml" />
+    <Content Include="Areas\Wizard\Views\Home\Step3.cshtml" />
+    <Content Include="Areas\Wizard\Views\Home\_Categories.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Bookmarks\Create.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Bookmarks\Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Bookmarks\Edit.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Bookmarks\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\BudgetReview\Monthly.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Transactions\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Reminders\_Delete.cshtml" />
+    <Content Include="Areas\Wizard\Views\Home\Step4.cshtml" />
+    <Content Include="Areas\Wizard\Views\Home\_Account.cshtml" />
+    <Content Include="Areas\Configuration\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Configuration\Views\Users\Initialize.cshtml" />
+    <Content Include="Areas\Reports\Views\NetWorth\Annual.cshtml" />
+    <Content Include="Areas\Reports\Views\BudgetReview\Annual.cshtml" />
+    <Content Include="Areas\Legacy\Views\web.config" />
+    <Content Include="Areas\Legacy\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Legacy\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Import\Views\web.config" />
+    <Content Include="Areas\Import\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Import\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Import\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Import\Views\Home\Preview.cshtml" />
+    <Content Include="Areas\Import\Views\Home\Process.cshtml" />
+    <None Include="ConfigurationData\MvcSiteMapSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="Data\LegacyData.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LegacyData.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Data\LegacyData.edmx.diagram">
+      <DependentUpon>LegacyData.edmx</DependentUpon>
+    </Content>
+    <Content Include="Mvc.sitemap" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <EntityDeploy Include="Data\DefaultData.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DefaultData.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Data\DefaultData.edmx.diagram">
+      <DependentUpon>DefaultData.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Data\AuthData.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AuthData.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Data\AuthData.edmx.diagram">
+      <DependentUpon>AuthData.edmx</DependentUpon>
+    </Content>
+    <Content Include="db.config" />
+    <None Include="MvcSiteMapSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Scripts\bootstrap\bootstrap.js" />
+    <Content Include="Scripts\bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\fi\fi.accounts.js" />
+    <Content Include="Scripts\fi\fi.budget-review.annual.js" />
+    <Content Include="Scripts\fi\fi.budget-review.monthly.js" />
+    <Content Include="Scripts\fi\fi.budget-review.category-group.js" />
+    <Content Include="Scripts\fi\fi.budget-review.js" />
+    <Content Include="Scripts\fi\fi.dashboard.js" />
+    <Content Include="Scripts\fi\fi.legacy.import.js" />
+    <Content Include="Scripts\fi\fi.networth.instant.js" />
+    <Content Include="Scripts\fi\fi.networth.js" />
+    <Content Include="Scripts\fi\fi.networth.annual.js" />
+    <Content Include="Scripts\fi\fi.networth.monthly.js" />
+    <Content Include="Scripts\fi\fi.objects.js" />
+    <Content Include="Scripts\fi\fi.reminders.js" />
+    <Content Include="Scripts\fi\fi.transactions.js" />
+    <None Include="Properties\PublishProfiles\Local Fi.pubxml" />
+    <None Include="Scripts\jquery\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery\jquery-3.1.1.slim.min.js" />
+    <None Include="Scripts\jquery\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery\jquery.validate.js" />
+    <Content Include="Scripts\jquery\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\library\utilities.js" />
+    <Content Include="Scripts\masonry.pkgd.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\respond\respond.js" />
+    <Content Include="Scripts\respond\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_SiteLayout.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
+    <Content Include="Scripts\jquery\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery\jquery-3.1.1.min.map" />
+    <Content Include="Views\Tour\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Code\Helpers\" />
+    <Folder Include="Content\uploads\imports\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52539</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44318/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

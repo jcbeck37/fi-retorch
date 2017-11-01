@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+@section Navigation {
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Dashboard", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Reports", "Index", "Home", new { Area = "Reports" }, null)</li>
+                    <li>@Html.ActionLink("Accounts", "Index", "Accounts")</li>
+                    <li>@Html.ActionLink("Transactions", "Index", "Transactions", new { reset = "true" }, null)</li>
+                    <li>@Html.ActionLink("Reminders", "Index", "Reminders")</li>
+                    <li>@Html.ActionLink("Settings", "Settings", "Home")</li>
+                </ul>
+}
+
+@Html.MvcSiteMap().SiteMapPath()
+@RenderBody()
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false);
+}

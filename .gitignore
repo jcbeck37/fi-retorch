@@ -1,0 +1,6 @@
+.suo
+db.config
+*.ide
+*.cache
+fi.retorch.com/fi.retorch.com/obj/
+fi.retorch.com/packages/

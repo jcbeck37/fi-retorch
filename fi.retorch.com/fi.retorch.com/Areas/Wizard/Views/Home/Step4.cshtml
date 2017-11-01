@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Create Account";
+}
+
+@section Scripts {
+<script src="~/Scripts/jquery/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery/jquery.validate.unobtrusive.min.js"></script>
+@*<script src="~/Scripts/fi/fi.accounts.js"></script>*@
+<script type="text/javascript">
+    $(function () {
+        //fi.accounts.setup();
+        $.validator.unobtrusive.parse("#frmFirstAccount");
+
+        $('.datepicker').datepicker({
+            orientation: "bottom auto",
+            autoclose: true
+        });
+    });
+</script>
+}
+
+
+
+
+<h2>Great!</h2>
+
+<p>All set with those setup tasks. </p>
+
+<div class="wizard-step">
+    @{ Html.RenderPartial("_Account"); }
+</div>

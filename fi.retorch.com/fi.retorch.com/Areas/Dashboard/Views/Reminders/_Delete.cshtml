@@ -1,0 +1,117 @@
+﻿@model fi.retorch.com.Areas.Dashboard.Models.ReminderModel
+
+<div class="modal-header hide">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Delete Reminder</h4>
+</div>
+
+<div class="modal-body">
+    <dl>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AccountName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.ReminderTypeId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ReminderTypeId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ReminderTypeName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ReminderTypeName)
+            </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReminderScheduleId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReminderScheduleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NextDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NextDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsCredit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsCredit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastDate)
+        </dd>
+
+    </dl>
+
+    @using (Ajax.BeginForm("Delete", "Reminders", FormMethod.Post, new AjaxOptions(), new { name = "frmReminderDelete" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color buttons">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </div>
+
+        <div class="modal-footer hide">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </div>
+                <div class="col-md-8 text-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

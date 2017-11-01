@@ -1,0 +1,41 @@
+﻿@model fi.retorch.com.Areas.Reports.Models.BudgetReviewModel
+
+@{
+    ViewBag.Title = "Annual Budget Review";
+}
+
+@section Scripts {
+@*<script src="~/Scripts/masonry.pkgd.min.js"></script>*@
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/fi/fi.objects.js"></script>
+<script src="~/Scripts/fi/fi.budget-review.js"></script>
+<script src="~/Scripts/fi/fi.budget-review.annual.js"></script>
+<script src="~/Scripts/fi/fi.budget-review.category-group.js"></script>
+<script type="text/javascript">
+$(function () {
+    fi.budget_review.annual.setup();
+});
+</script>
+}
+
+<h2>Annual Budget Review</h2>
+
+<div id="settings">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-1" for="startDate">@Html.LabelFor(m => m.StartDate)</label>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.StartDate, new { id = "startDate", @class = "form-control datepicker annual", Value = String.Format("{0:yyyy}", Model.StartDate)})
+            </div>
+            <label class="control-label col-md-1" for="endDate">@Html.LabelFor(m => m.EndDate)</label>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.EndDate, new { id = "endDate", @class = "form-control datepicker annual", Value = String.Format("{0:yyyy}", Model.EndDate) })
+            </div>
+        </div>
+    </div>
+</div>
+<div id="report" class="annual">
+    <div id="summary"></div>
+    <div id="categoryGroups"></div>
+</div>
+

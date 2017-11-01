@@ -1,0 +1,59 @@
+﻿@model fi.retorch.com.Areas.Wizard.Models.DefaultAccountTypeList
+
+<div id="defaultAccountTypes" class="wizard-step">
+    <h4>Step 1: Account Types</h4>
+    <p>
+        Grouping your accounts into types isn't necessary, but it makes for some pretty neat worth progress charts.
+    </p>
+    <p>
+        Here are a few we recommend. Update them to your liking, or hit Next to keep moving. You can always make additional changes later by visiting Settings.
+    </p>
+    <p>
+        Uncheck "Create" on any that you won't use. If you choose none, we'll create just one called "All Accounts." Clever, right?
+    </p>
+    @using (Html.BeginForm("Step1", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-9 col-md-3">
+                <input type="submit" value="Next Step" class="btn btn-default" />
+            </div>
+        </div>
+        for (var i = 0; i < Model.AccountTypes.Count; i++)
+        {
+            <table id="user" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="text-center">Account Type: @Html.EditorFor(modelItem => Model.AccountTypes[i].Name, new { htmlAttributes = new { @class = "form-control" } })</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="33%">@Html.EditorFor(modelItem => Model.AccountTypes[i].IsChecked) @Html.LabelFor(modelItem => Model.AccountTypes[i].IsChecked)</td>
+                        <td width="67%"><span class="text-muted">Uncheck if you won't use.</span></td>
+                    </tr>
+                    <tr>
+                        <td width="33%">@Html.EditorFor(modelItem => Model.AccountTypes[i].IsDebt) @Html.LabelFor(modelItem => Model.AccountTypes[i].IsDebt)</td>
+                        <td width="67%"><span class="text-muted">This "Debt" checkbox lets us know how to split your net worth chart into "assets" (what you have) and "liabilities" (what you owe.)</span></td>
+                    </tr>
+                    <tr>
+                        <td width="33%">
+                            <div class="input-divider">
+                                @Html.EditorFor(modelItem => Model.AccountTypes[i].PositiveText, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            @Html.EditorFor(modelItem => Model.AccountTypes[i].NegativeText, new { htmlAttributes = new { @class = "form-control" } })
+                        </td>
+                        <td width="67%"><span class="text-muted">We let you customize what credits and debits are called for different account types - if you want. We picked out defaults that we think are pretty intuitive, but you might have some better ones!</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+        <div class="form-group">
+            <div class="col-md-offset-9 col-md-3">
+                <input type="submit" value="Next Step" class="btn btn-default" />
+            </div>
+        </div>
+    }
+    <div class="clearfix"></div>
+</div>

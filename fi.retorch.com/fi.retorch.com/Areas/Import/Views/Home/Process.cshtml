@@ -1,0 +1,40 @@
+﻿@model fi.retorch.com.Areas.Import.Models.ImportProcessModel
+@{
+
+}
+
+<h2>Import Transactions</h2>
+
+<div id="transaction-import" class="form-horizontal">
+    <h4>Import Complete</h4>
+    <hr />
+
+    <div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AccountName, htmlAttributes: new { @class = "col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.AccountName)
+            </div>
+        </div>
+        <div>
+            <div class="col-md-10">
+                <div>Previous Account Balance: <span class="currency@((Model.CurrentAccountBalance < 0 && !Model.IsDebt) || (Model.CurrentAccountBalance > 0 && Model.IsDebt) ? " negative" : "")">@Html.DisplayFor(model => model.CurrentAccountBalance)</span></div>
+
+                <div>Total Records: @Html.DisplayFor(model => model.ImportedRecords)</div>
+                @if (Model.InterestRecords > 0)
+                {
+                    <div>Interest Records: @Html.DisplayFor(model => model.InterestRecords)</div>
+                }
+                @if (Model.SkippedRecords > 0)
+                {
+                    <div>Skipped Records: @Html.DisplayFor(model => model.SkippedRecords)</div>
+                }
+
+                <div>@Model.CreditText Total: <span class="currency@(Model.CreditTotal < 0 ? " negative" : "")">@Html.DisplayFor(model => model.CreditTotal)</span></div>
+                <div>@Model.DebitText Total: <span class="currency@(Model.DebitTotal < 0 ? " negative" : "")">@Html.DisplayFor(model => model.DebitTotal)</span></div>
+                <div>New Balance: <span class="currency@((Model.NewAccountBalance < 0 && !Model.IsDebt) || (Model.NewAccountBalance > 0 && Model.IsDebt) ? " negative" : "")">@Html.DisplayFor(model => model.NewAccountBalance)</span></div>
+            </div>
+        </div>
+
+    </div>
+</div>

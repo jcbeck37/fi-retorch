@@ -1,0 +1,139 @@
+﻿@model fi.retorch.com.Areas.Dashboard.Models.TransactionModel
+
+@{
+    string SelectOptionText = "-- {0} --";
+}
+
+<div class="modal-header hide">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Create Transaction</h4>
+</div>
+
+<div class="modal-body">
+    @using (Ajax.BeginForm("Create", "Transactions", FormMethod.Post, new AjaxOptions
+    {
+        OnComplete = "fi.transactions.onCreate"
+    },
+                new { name = "frmTransactionsCreate" }
+            ))
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.RedirectController)
+            @Html.HiddenFor(model => model.ReminderId)
+
+            <fieldset title="Required">
+                <legend>Required</legend>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(model => model.AccountId, Model.Accounts, String.Format(SelectOptionText, Html.DisplayNameFor(model => model.AccountId)), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.AccountId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(model => model.Name) } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.AmountFormatted, new
+                       {
+                           htmlAttributes = new
+                           {
+                               @class = "form-control",
+                               Value = String.Format("{0:C}", Model.Amount),
+                               placeholder = Html.DisplayNameFor(model => model.Amount)
+                           }
+                       })
+                            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            &nbsp;
+                            <label>
+                                @Html.RadioButtonFor(model => model.IsCredit, true)
+                                <span id="PositiveText">@Model.PositiveText</span>&nbsp;
+                            </label>
+                            <label>
+                                @Html.RadioButtonFor(model => model.IsCredit, false)
+                                <span id="NegativeText">@Model.NegativeText</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.DisplayDate, new
+                       {
+                           htmlAttributes = new
+                           {
+                               @class = "form-control datepicker",
+                               placeholder = Html.DisplayNameFor(model => model.DisplayDate)
+                           }
+                       })
+                            @Html.ValidationMessageFor(model => model.DisplayDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            &nbsp;
+                            @Html.EditorFor(model => model.IsPosted)
+                            @Html.LabelFor(model => model.IsPosted, htmlAttributes: new { @class = "control-label" })
+                            @Html.ValidationMessageFor(model => model.IsPosted, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset title="Optional">
+                <legend>Optional</legend>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12@(Model.Categories.ToList().Count == 0 ? " hide" : "")" id="divCategories">
+                            @Html.DropDownListFor(model => model.CategoryId, Model.Categories, String.Format(SelectOptionText, Html.DisplayNameFor(model => model.CategoryId)), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group buttons">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer hide">
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-8 text-right">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

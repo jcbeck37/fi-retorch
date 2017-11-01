@@ -1,0 +1,85 @@
+﻿@model fi.retorch.com.Areas.Dashboard.Models.CategoryList
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Categories";
+
+    string SelectOptionText = "-- {0} --";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#reset').click(function () {
+                window.location = window.location.href.split('?')[0] + '?reset=true';
+            });
+        });
+    </script>
+}
+
+<h2>Categories</h2>
+
+<p>
+    @Html.ActionLink("Add Category", "Create")
+</p>
+
+<div class="filters">
+    @using (Html.BeginForm("Index", "Categories", FormMethod.Post))
+    {
+        <div class="filter">
+            @Html.DropDownListFor(model => model.Settings.GroupId, (SelectList)ViewBag.CategoryGroups, String.Format(SelectOptionText, Html.DisplayNameFor(model => model.Settings.GroupId)), new { @class = "form-control" })
+        </div>
+        <div class="filter">
+            @Html.DropDownListFor(model => model.Settings.IsActive, (SelectList)ViewBag.IsActiveOptions, String.Format(SelectOptionText, Html.DisplayNameFor(model => model.Settings.IsActive)), new { @class = "form-control" })
+        </div>
+        <div class="filter">
+            @Html.TextBox("Settings.Search", ViewBag.Filter as string, new { @class = "form-control", placeholder = "Search Text" })
+        </div>
+        <div class="filter">
+            <input type="submit" value="Filter" class="btn btn-default" />
+            <input type="button" value="Reset" class="btn" id="reset" />
+        </div>
+    }
+    <div class="clearfix"></div>
+</div>
+
+<div class="paging">
+    Page @(Model.PagedItems.PageCount < Model.PagedItems.PageNumber ? 0 : Model.PagedItems.PageNumber) of @Model.PagedItems.PageCount
+
+    @Html.PagedListPager(Model.PagedItems, page => Url.Action("Index",
+    new { page }), new PagedListRenderOptions
+    {
+        MaximumPageNumbersToDisplay = 20
+    })
+    @*new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PagedItems.FirstOrDefault().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PagedItems.FirstOrDefault().GroupId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PagedItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

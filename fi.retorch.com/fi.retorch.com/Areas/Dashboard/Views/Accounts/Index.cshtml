@@ -1,0 +1,127 @@
+﻿@model fi.retorch.com.Areas.Dashboard.Models.AccountList
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Accounts";
+
+    string SelectOptionText = "-- {0} --";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            //$('.datepicker').datepicker({
+            //    orientation: "bottom auto",
+            //    autoclose: true
+            //});
+
+            $('#reset').click(function () {
+                window.location = window.location.href.split('?')[0] + '?reset=true';
+            });
+        });
+    </script>
+}
+
+<h2>Accounts</h2>
+
+<p>
+    @Html.ActionLink("Add Account", "Create")
+</p>
+
+<div class="filters">
+    @using (Html.BeginForm("Index", "Accounts", FormMethod.Post))
+    {
+        <div class="filter">
+            @Html.DropDownListFor(model => model.Settings.TypeId, (SelectList)ViewBag.AccountTypes, String.Format(SelectOptionText, Html.DisplayNameFor(model => model.Settings.TypeId)), new { @class = "form-control" })
+        </div>
+        <div class="filter">
+            @Html.DropDownListFor(model => model.Settings.IsDisplayed, (SelectList)ViewBag.DisplayOptions, String.Format(SelectOptionText, Html.DisplayNameFor(model => model.Settings.IsDisplayed)), new { @class = "form-control" })
+        </div>
+        <div class="filter">
+            @Html.DropDownListFor(model => model.Settings.IsClosed, (SelectList)ViewBag.OpenOptions, String.Format(SelectOptionText, Html.DisplayNameFor(model => model.Settings.IsClosed)), new { @class = "form-control" })
+        </div>
+        <div class="filter">
+            @Html.TextBox("Settings.Search", ViewBag.Filter as string, new { @class = "form-control", placeholder = "Search Text" })
+        </div>
+        <div class="filter">
+            <input type="submit" value="Filter" class="btn btn-default" />
+            <input type="button" value="Reset" class="btn" id="reset" />
+        </div>
+    }
+    <div class="clearfix"></div>
+</div>
+
+<div class="paging">
+    Page @(Model.PagedItems.PageCount < Model.PagedItems.PageNumber ? 0 : Model.PagedItems.PageNumber) of @Model.PagedItems.PageCount
+
+    @Html.PagedListPager(Model.PagedItems, page => Url.Action("Index",
+    new { page }), new PagedListRenderOptions
+    {
+        MaximumPageNumbersToDisplay = 20
+    })
+    @*new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
+</div>
+
+@if (Model.TotalItems == 0)
+{
+    <div id="no-accounts-message" class="alert alert-info">
+        <p>No accounts found. Update your filters above, or @Html.ActionLink("create an account", "Create").</p>
+    </div>
+}
+else
+{
+<table class="accounts table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PagedItems.FirstOrDefault().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PagedItems.FirstOrDefault().TypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PagedItems.FirstOrDefault().CurrentBalance)
+            </th>
+            <th>
+                Dashboard
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @{
+        decimal totalAmount = 0;
+    }
+@foreach (var item in Model.PagedItems)
+{
+    totalAmount += item.CurrentBalance.Value;
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeName)
+        </td>
+        <td class="@(item.CurrentBalance < 0 ? "negative" : "")">
+            @Html.DisplayFor(modelItem => item.CurrentBalance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDisplayed)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+    </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th class="currency @(totalAmount >= 0 ? "" : "negative")">@string.Format("{0:C}", totalAmount)</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
+</table>
+}

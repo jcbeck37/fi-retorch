@@ -1,0 +1,35 @@
+﻿@model fi.retorch.com.Areas.Reports.Models.NetWorthInstantModel
+
+@{
+    ViewBag.Title = "Net Worth";
+}
+
+@section Scripts {
+<script src="~/Scripts/masonry.pkgd.min.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/fi/fi.objects.js"></script>
+<script src="~/Scripts/fi/fi.networth.instant.js"></script>
+<script type="text/javascript">
+$(function () {
+    fi.networth.instant.setup();
+});
+</script>
+}
+
+<h2>Net Worth</h2>
+
+<div id="settings">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-2" for="valueDate"></label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Date, new { id = "date", @class = "form-control datepicker", Value = String.Format("{0:MM/dd/yyyy}", Model.Date)})
+            </div>
+        </div>
+    </div>
+</div>
+<div id="report">
+    <div id="netWorthTotal"></div>
+    <div id="accountTypes"></div>
+</div>
+

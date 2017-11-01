@@ -1,0 +1,43 @@
+﻿@model fi.retorch.com.Areas.Reports.Models.NetWorthMonthlyModel
+
+@{
+    ViewBag.Title = "Monthly Net Worth Changes";
+}
+
+@section Scripts {
+<script src="~/Scripts/masonry.pkgd.min.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/library/utilities.js"></script>
+<script src="~/Scripts/fi/fi.objects.js"></script>
+<script src="~/Scripts/fi/fi.networth.js"></script>
+<script src="~/Scripts/fi/fi.networth.monthly.js"></script>
+<script type="text/javascript">
+$(function () {
+    fi.networth.monthly.setup();
+});
+</script>
+}
+
+<h2>Monthly Net Worth Changes</h2>
+
+<div id="settings">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-2" for="valueDate">@Html.LabelFor(m => m.StartDate)</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.StartDate, new { id = "date", @class = "form-control datepicker monthly", Value = String.Format("{0:MM-yyyy}", Model.StartDate), width="100px" })
+            </div>
+        </div>
+    </div>
+</div>
+<div id="report">
+    <table id="balances" class="table table-striped table-bordered">
+        <thead>
+
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+

@@ -1,0 +1,115 @@
+﻿@model fi.retorch.com.Areas.Import.Models.ImportPreviewModel
+@{
+
+}
+
+<h2>Import Transactions</h2>
+
+@using (Html.BeginForm("Process", "Home"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.AccountId)
+    @Html.HiddenFor(model => model.IsDebt)
+
+    <div id="transaction-import" class="form-horizontal">
+        <h4>Preview Import</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AccountId, htmlAttributes: new { @class = "col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.AccountName)
+                </div>
+            </div>
+
+            <div>
+                <div class="col-md-10">
+                    <div>Previous Account Balance: <span class="currency@((Model.CurrentAccountBalance < 0 && !Model.IsDebt) || (Model.CurrentAccountBalance > 0 && Model.IsDebt) ? " negative" : "")">@Html.DisplayFor(model => model.CurrentAccountBalance)</span></div>
+
+                    <div>Total Records: @Html.DisplayFor(model => model.TotalRecords)</div>
+                    @if (Model.FailedRecords > 0)
+                    {
+                    <div>Failed Records: @Html.DisplayFor(model => model.FailedRecords)</div>
+                    }
+
+                    <div>@Model.CreditText Total: <span class="currency@(Model.CreditTotal < 0 ? " negative" : "")">@Html.DisplayFor(model => model.CreditTotal)</span></div>
+                    <div>@Model.DebitText Total: <span class="currency@(Model.DebitTotal < 0 ? " negative" : "")">@Html.DisplayFor(model => model.DebitTotal)</span></div>
+                    <div>New Balance: <span class="currency@((Model.NewAccountBalance < 0 && !Model.IsDebt) || (Model.NewAccountBalance > 0 && Model.IsDebt) ? " negative" : "")">@Html.DisplayFor(model => model.NewAccountBalance)</span></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2 text-right">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.HasHeaderRow)
+                        @Html.ValidationMessageFor(model => model.HasHeaderRow, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @Html.LabelFor(model => model.HasHeaderRow, htmlAttributes: new { @class = "col-md-10" })
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2 text-right">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.HasInvertedAmounts)
+                        @Html.ValidationMessageFor(model => model.HasInvertedAmounts, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.HasInvertedAmounts)
+                    <div>If this is inverted (positive instead of negative, etc), check this box to correct.</div>
+                </div>
+            </div>
+
+            @if (Model.CalculateInterest)
+            {
+                <div class="form-group">
+                    <div class="col-md-2 text-right">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.CalculateInterest)
+                            @Html.ValidationMessageFor(model => model.CalculateInterest, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        Because your account type is a loan, your import file contains a column for account balance, and we didn't detect any records labeled "Interest",
+                        we'll add transactions for interest if the account balance in the import doesn't match the result of applying the transaction amount to your account.
+                        If you'd like to skip this, uncheck the box.
+                    </div>
+                </div>
+            }
+
+            <div>
+                <h4>Sample Transactions:</h4>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            @foreach (fi.retorch.com.Areas.Import.Models.ImportColumn col in Model.ImportColumns)
+                            {
+                                <th class="nowrap">@col.ColumnName</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (fi.retorch.com.Areas.Import.Models.ImportRecord record in Model.PreviewRecords)
+                        {
+                            <tr>
+                                @foreach (fi.retorch.com.Areas.Import.Models.ImportValue value in record.Values)
+                                {
+                                    <td>@value.Display</td>
+                                }
+                            </tr>
+                        }
+                        </tbody>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Process" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

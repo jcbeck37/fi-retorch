@@ -1,0 +1,26 @@
+﻿@model fi.retorch.com.Areas.Dashboard.Models.ReminderModel
+
+@{
+    ViewBag.Title = "Reminders";
+}
+
+@section Scripts {
+    <script src="~/Scripts/fi/fi.reminders.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            fi.reminders.setup();
+        });
+    </script>
+}
+
+<h2>Reminders</h2>
+
+<h4>Edit</h4>
+
+@{
+    Html.RenderPartial("_Edit", Model);
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

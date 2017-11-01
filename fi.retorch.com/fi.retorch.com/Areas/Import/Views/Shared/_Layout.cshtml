@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+@section Navigation {
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Dashboard", "Index", "Home", new { area = "Dashboard" }, null)</li>
+                    <li>@Html.ActionLink("Import", "Index", "Home", new { area = "Import" }, null)</li>
+                </ul>
+}
+
+@Html.MvcSiteMap().SiteMapPath()
+@RenderBody()
+
+@section Scripts {
+    @RenderSection("scripts", required: false);
+}

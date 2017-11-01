@@ -1,0 +1,78 @@
+﻿@model fi.retorch.com.Areas.Wizard.Models.DefaultCategoryList
+
+<div id="defaultCategories" class="wizard-step">
+    <h4>Step 3: Categories</h4>
+    <p>
+        This is a great way to track where your money is going. The more categories, the easier it is to see where your money goes.
+    </p>
+    <p>
+        For now, you probably want all of your categories to be active, but if you stop using a category, but still want it to show up in reports, you can deactivate it.
+    </p>
+    <p>
+        In a little bit, you'll be able to pick which accounts include different categories. This is just you can create a lot of categories, but only show the ones you need at the right time.
+    </p>
+    <p>
+        Update them to your liking, or hit Next to keep moving. You can always make additional changes later by visiting Settings.
+    </p>
+    <p>
+        Uncheck "Create" on any that you won't use. If you choose none, we'll create just one called "Uncategorized."
+    </p>
+    @using (Html.BeginForm("Step3", "Home", FormMethod.Post))
+    {
+        var groupBreak = (Model.Categories.Count / 2) + (Model.Categories.Count % 2);
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-9 col-md-3">
+                <input type="submit" value="Next Step" class="btn btn-default" />
+            </div>
+        </div>
+
+        <table id="user" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th width="15%" class="text-muted text-right">@Html.LabelFor(modelItem => Model.Categories.FirstOrDefault().IsChecked)</th>
+                    <th width="45%" class="text-muted">@Html.LabelFor(modelItem => Model.Categories.FirstOrDefault().GroupId)</th>
+                    <th width="40%" class="text-muted">@Html.LabelFor(modelItem => Model.Categories.FirstOrDefault().Name)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < groupBreak; i++)
+                {
+                <tr>
+                    <td>@Html.EditorFor(modelItem => Model.Categories[i].IsChecked)</td>
+                    <td>@Html.DropDownListFor(modelItem => Model.Categories[i].GroupId, Model.Categories[i].Groups, " -- NONE --", new { @class = "form-control " })</td>
+                    <td>@Html.EditorFor(modelItem => Model.Categories[i].Name, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+        <table id="user" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th width="15%" class="text-muted text-right">@Html.LabelFor(modelItem => Model.Categories.FirstOrDefault().IsChecked)</th>
+                    <th width="45%" class="text-muted">@Html.LabelFor(modelItem => Model.Categories.FirstOrDefault().GroupId)</th>
+                    <th width="40%" class="text-muted">@Html.LabelFor(modelItem => Model.Categories.FirstOrDefault().Name)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = groupBreak; i < Model.Categories.Count; i++)
+                {
+                    <tr>
+                        <td>@Html.EditorFor(modelItem => Model.Categories[i].IsChecked)</td>
+                        <td>@Html.DropDownListFor(modelItem => Model.Categories[i].GroupId, Model.Categories[i].Groups, " -- NONE --", new { @class = "form-control " })</td>
+                        <td>@Html.EditorFor(modelItem => Model.Categories[i].Name, new { htmlAttributes = new { @class = "form-control" } })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="form-group">
+            <div class="col-md-offset-9 col-md-3">
+                <input type="submit" value="Next Step" class="btn btn-default" />
+            </div>
+        </div>
+    }
+    <div class="clearfix"></div>
+</div>

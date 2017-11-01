@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>FI@retorch</h1>
+    <p class="lead">FI is a tool for tracking where your money went and will go.</p>
+    @if (Request.IsAuthenticated)
+    {
+        <p>
+            <a href="@Url.Action("Index", "Home", new { area = "Dashboard" })" class="btn btn-primary btn-lg">View Your Dashboard &raquo;</a>
+        </p>
+    }
+    else
+    {
+        <p>
+            <a href="@Url.Action("Register", "Account")" class="btn btn-primary btn-lg">Register &raquo;</a>
+            <a href="@Url.Action("Login", "Account")" class="btn btn-primary btn-lg">Login &raquo;</a>
+        </p>
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Financial Independence</h2>
+        <p>
+            Whether you plan on working your whole life, or living a life of leisure, the goal of financial independence is appealing, because it means the choice is yours.
+        </p>
+        @*<p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>*@
+    </div>
+    <div class="col-md-4">
+        <h2>Fortunate Information</h2>
+        <p>Knowing where your money is going, and seeing where it will go before it happens lets you make optimal decisions.</p>
+        @*<p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>*@
+    </div>
+    <div class="col-md-4">
+        <h2>Frugal Individual</h2>
+        <p>Being smart with your money doesn't have to mean cutting corners or a life of deprivation. It just means matching up where your money goes with what you really value.</p>
+        @*<p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>*@
+    </div>
+</div>

@@ -1,0 +1,31 @@
+﻿@model fi.retorch.com.Areas.Dashboard.Models.ReminderModel
+
+@{
+    ViewBag.Title = "Reminders";
+}
+
+@section Scripts {
+<script src="~/Scripts/fi/fi.accounts.js"></script>
+<script src="~/Scripts/fi/fi.reminders.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        fi.reminders.setup();
+
+        $.validator.unobtrusive.parse("#form0");
+    });
+</script>
+}
+
+<h2>Reminders</h2>
+
+<h4>Create Reminder</h4>
+
+@{
+    Html.RenderPartial("_Create", Model);
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

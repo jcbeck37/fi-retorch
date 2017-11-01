@@ -1,0 +1,115 @@
+﻿/* sitewide */
+body { padding-top: 50px; }
+@media (max-width: 1199px) { body { padding-top: 105px; } }
+@media (max-width: 767px) { body { padding-top: 50px; } }
+
+.nowrap { white-space: nowrap; }
+legend { margin-bottom: 10px; font-size:0.8em; color: #999999; }
+
+/* dashboard */
+.dashboard .settings { margin-top: 5px; margin-bottom: 5px; }
+.dashboard .settings .datepicker { display: inline; width: 90px; }
+
+.dashboard .account { display: block; width: 368px; min-height: 20px; float: left; border: 1px dotted #eeeeee; margin: 0 10px 10px 0; font-family: Tahoma; font-size: 0.9em; position:relative }
+.dashboard .account.debt .accountTitle { background-color: #510f0f; }
+.dashboard .account.asset .accountTitle { background-color: #003366; }
+.dashboard .accountTitle.row { color: white; margin: 0px; padding: 1px; }
+.dashboard .accountTitle.row .accountName { display: inline-block; margin: 0; padding: 1px; font-size: 1em; }
+.dashboard .accountTitle.row .accountBalance { display: inline-block; margin: 0; padding: 1px; text-align: right; }
+
+.dashboard .account .transaction.pending { background-color: #eee; }
+.dashboard .account .transaction.posted { background-color: #ccc; }
+.dashboard .account .transactions > div  { padding: 1px; }
+
+.dashboard .account .transactions span { vertical-align: top; }
+.dashboard .account .transactions .date { display: inline-block; width: 19%; }
+.dashboard .account .transactions .item { display: inline-block; width: 41%; }
+.dashboard .account .transactions .item .actions { display: inline-block; float: right; }
+.dashboard .account .transactions .amount { display: inline-block; width: 20%; text-align: right; }
+.dashboard .account .transactions .balance { display: inline-block; width: 20%; text-align: right; }
+
+.dashboard .account .transactions .item > a.edit { display: inline-block; word-break: break-word; text-transform: capitalize; width: 133px; }
+.dashboard .account .transactions .transaction .item > a.edit.posted { width: 153px; }
+.dashboard .account .transactions .item > .actions { height: 16px; width: 16px; background-size: 16px 16px; text-indent: -9999px; }
+.dashboard .account .transactions .item > .actions.post { background-image: url('/Content/img/icons/check.png'); }
+.dashboard .account .transactions .item > .actions.go { background-image: url('/Content/img/icons/in.png'); }
+
+.dashboard .account .transactions .amount.negative,
+    .dashboard .account .transactions .balance.negative { color: red; }
+
+.dashboard .account .transactions .posted .amount.negative,
+    .dashboard .account .transactions .posted  .balance.negative { color: #900; }
+
+.dashboard #bookmarkContainer { position: relative; float:right; padding: 5px; }
+.dashboard #bookmarkList { z-index: 1025; position: absolute; border: 1px dotted blue; padding: 5px; background-color:lightgray; }
+
+/* dashboard modal */
+.modal { margin: auto; max-width: 320px; /* max-height: 620px; background-color:white; */ padding-right: 0px !important; }
+.modal-dialog {  max-width: 320px; margin: 0 0 10px; padding: 0; }
+.modal-header { background-color: #337ab7; color: #fff; }
+.modal-header > h2 { font-size: 1.2em; margin-top: 0; }
+.modal-body { padding-left: 0; }
+.modal-body .modal-body hr { display: none; }
+.modal-body .form-control { width: 300px; margin-left: 0px; }
+.modal-dialog .modal-body { padding-left: 15px; }
+.modal-dialog .modal-body .form-control { padding-left: 15px; }
+
+/* Accounts */
+.accounts.table .negative { color: red; }
+
+/* Transactions */
+.transactions.table .negative { color: red; }
+.filters div.filter { float:left; padding-right: 2px; }
+.filters .datepicker { width: 85px; }
+
+/* Reminders */
+.reminders.table .negative { color: red; }
+
+/* Reports */
+#report .currency,
+#report .header-currency { text-align: right; }
+#report #netWorthTotal span { font-weight:bold; display: inline-block; width: 100px; }
+#report #accountTypes .typeName { display: inline-block; width: 100px; }
+#report #accountTypes .typeTotal,
+#report #netWorthTotal .currency { display: inline-block; width: 120px; text-align: right;}
+#report .negative { color: red; }
+
+#report #balances th { padding: 2px; text-align: center; }
+#report #balances td { padding: 2px; text-align: right; }
+
+#settings .datepicker.annual { width: 60px; }
+#settings .datepicker.monthly { width: 80px; }
+#report #categoryGroups { font-size: 0.9em; }
+#report #summary table,
+#report #categoryGroups table { width: auto; }
+#report #summary th.groupName,
+#report #categoryGroups th.categoryName,
+#report #categoryGroups td.categoryName { width: 150px; }
+#report.annual #summary td,
+#report.annual #categoryGroups td { width: 151px; }
+#report.monthly #summary td,
+#report.monthly #categoryGroups td { width: 120px; }
+#report #summary tr.transfer-total { border-bottom: 2px solid lightgray }
+#report #summary tr.overall-total { }
+#report #categoryGroups tfoot td { font-weight: bold; }
+#report #categoryGroups tfoot td .change-text { text-align: right }
+#report #categoryGroups tfoot td .positive-change { color: green; }
+#report #categoryGroups tfoot td .negative-change { color: red; }
+
+/* Wizard */
+.wizard-step .table { width: 45%; float: left; margin-top: 15px; margin-right: 5px; }
+.wizard-step .table td:first-of-type { text-align:right; }
+.wizard-step .table th input { display: inline; width: 180px }
+.wizard-step .table td div.input-divider { height: 40px; }
+.wizard-step .table td input.form-control { float:none;}
+.wizard-step .table td input[type=checkbox] { width: 24px; height: 24px; }
+
+.wizard-step table#account { width: 100%; }
+.wizard-step table#account tr td:first-child  { text-align:right; }
+.wizard-step table#account tr td:nth-child(2) input[type=checkbox] { margin-top: -4px; margin-left: 15px; }
+.wizard-step table#account tr td.categories { text-align:left; }
+.wizard-step table#account tr td.categories label { margin-left: 20px; }
+.wizard-step table#account tr td.categories input[type=checkbox] { margin-top: -2px; margin-left: -30px; }
+
+/* Transaction Import */
+#transaction-import .currency.negative { color: red; }

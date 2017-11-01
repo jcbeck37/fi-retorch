@@ -1,0 +1,133 @@
+﻿@model fi.retorch.com.Areas.Dashboard.Models.TransactionList
+
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Transactions";
+
+    string SelectOptionText = "-- {0} --";
+}
+
+@section Scripts {
+<script src="~/Scripts/fi/fi.transactions.js"></script>
+<script type="text/javascript">
+    $(function () {
+        fi.transactions.setupList();
+    });
+</script>
+}
+
+<h2>Transactions</h2>
+
+<p>
+    @Html.ActionLink("Add Transaction", "Create", new { c = "Transactions" })
+</p><br />
+
+<div class="filters">
+    @using (Html.BeginForm("Index", "Transactions", FormMethod.Post))
+    {
+        <div class="filter">
+            @Html.EditorFor(model => model.Settings.StartDate, new { htmlAttributes = new { @class = "form-control datepicker", placeholder = Html.DisplayNameFor(model => model.Settings.StartDate) } })
+        </div>
+        <div class="filter">
+            @Html.EditorFor(model => model.Settings.EndDate, new { htmlAttributes = new { @class = "form-control datepicker", placeholder = Html.DisplayNameFor(model => model.Settings.EndDate) } })
+        </div>
+        <div class="filter">
+            @Html.DropDownListFor(model => model.Settings.AccountTypeId, (SelectList)ViewBag.AccountTypes, String.Format(SelectOptionText, Html.DisplayNameFor(model => model.Settings.AccountTypeId)), new { @class = "form-control" })
+        </div>
+        <div class="filter">
+            @Html.DropDownListFor(model => model.Settings.AccountId, (SelectList)ViewBag.Accounts, String.Format(SelectOptionText, Html.DisplayNameFor(model => model.Settings.AccountId)), new { @class = "form-control" })
+        </div>
+        <div class="filter">
+            @Html.DropDownListFor(model => model.Settings.CategoryId, (SelectList)ViewBag.Categories, String.Format(SelectOptionText, Html.DisplayNameFor(model => model.Settings.CategoryId)), new { @class = "form-control" })
+        </div>
+        <div class="filter">
+            @Html.TextBox("Settings.Search", ViewBag.Filter as string, new { @class = "form-control", placeholder = "Search Text" })
+        </div>
+        <div class="filter">
+             <input type="submit" value="Filter" class="btn btn-default" />
+             <input type="button" value="Reset" class="btn" id="reset" />
+        </div>
+    }
+    <div class="clearfix"></div>
+</div>
+<div class="paging">
+    Page @(Model.PagedItems.PageCount < Model.PagedItems.PageNumber ? 0 : Model.PagedItems.PageNumber) of @Model.PagedItems.PageCount
+
+    @Html.PagedListPager(Model.PagedItems, page => Url.Action("Index",
+    new {
+        page
+    }), new PagedListRenderOptions
+    {
+        MaximumPageNumbersToDisplay = 20
+    }) 
+    @*new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
+</div>
+
+<table class="transactions table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Display Date", "Index", new { Sort = ViewBag.DateSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PagedItems.FirstOrDefault().Amount)
+            </th>
+            <th>
+                @Html.ActionLink("Name", "Index", new { Sort = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PagedItems.FirstOrDefault().DatePosted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PagedItems.FirstOrDefault().CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PagedItems.FirstOrDefault().AccountId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ 
+            decimal totalAmount = 0;
+        }
+@foreach (var item in Model.PagedItems)
+{
+    totalAmount += item.Amount.Value;
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisplayDate)
+        </td>
+        <td class="@(item.Amount >= 0 ? "" : "negative")">
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatePosted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id, c = "Transactions" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id, c = "Transactions" })
+        </td>
+    </tr>
+}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th class="currency @(totalAmount >= 0 ? "" : "negative")">@string.Format("{0:C}", totalAmount)</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

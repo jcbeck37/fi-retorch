@@ -1,0 +1,147 @@
+﻿@model fi.retorch.com.Areas.Dashboard.Models.AccountModel
+
+<div id="defaultAccounts" class="wizard-step">
+    <h4>Step 4: First Account</h4>
+    <p>
+        Let's create your first account!
+    </p>
+    @using (Html.BeginForm("Step4", "Home", FormMethod.Post, new { id = "frmFirstAccount" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-9 col-md-3">
+                <input type="submit" value="Next Step" class="btn btn-default" />
+            </div>
+        </div>
+
+            <table id="account" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th colspan="3" class="text-center">
+                            <div>Account: @Html.EditorFor(modelItem => Model.Name, new { htmlAttributes = new { @class = "form-control" } })</div>
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            <div class="text-muted">This is just a nickname you can choose to know which account this is. It's up to you how specific you want it to be.</div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="33%">@Html.LabelFor(model => model.TypeId, htmlAttributes: new { @class = "control-label" })</td>
+                        <td width="33%">
+                            @Html.DropDownListFor(model => model.TypeId, Model.Types, String.Empty, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
+                        </td>
+                        <td width="34%"><span class="text-muted">This doesn't affect much, but it's useful for net worth reports.</span></td>
+                    </tr>
+                    <tr>
+                        <td width="33%"> @Html.LabelFor(model => model.DateOpened, htmlAttributes: new { @class = "control-label" })</td>
+                        <td width="33%">
+                            @Html.EditorFor(model => model.DateOpened, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                            @Html.ValidationMessageFor(model => model.DateOpened, "", new { @class = "text-danger" })
+                        </td>
+                        <td width="34%"><span class="text-muted">You don't have to dig through your paperwork to find an "opening date."
+                            Instead, pick the date you want to start tracking all this information. For example, you could wind back to
+                            the beginning of the month, and then load all the transactions that have happened so far. If that's the case,
+                            the first will work here.</span></td>
+                    </tr>
+                    <tr>
+                        <td width="33%">
+                            @Html.LabelFor(model => model.OpeningBalance, htmlAttributes: new { @class = "control-label" })
+                        </td>
+                        <td width="33%">
+                            @Html.EditorFor(model => model.OpeningBalanceFormatted, new { htmlAttributes = new { @class = "form-control", Value = String.Format("{0:C}", Model.OpeningBalance) } })
+                            @Html.ValidationMessageFor(model => model.OpeningBalance, "", new { @class = "text-danger" })
+                        </td>
+                        <td width="34%"><span class="text-muted">Your initial balance works just like the opening date. It will be the balance
+                            on the day you start tracking, before any transactions you want to log. For any new account, you might leave this
+                            as $0, and then add a transaction like "Initial Deposit" or "Loan Disbursed."</span></td>
+                    </tr>
+                    <tr>
+                        <td width="33%">
+                            @Html.LabelFor(model => model.IsDisplayed, htmlAttributes: new { @class = "control-label" })
+                        </td>
+                        <td width="33%">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.IsDisplayed)
+                                @Html.ValidationMessageFor(model => model.IsDisplayed, "", new { @class = "text-danger" })
+                            </div>
+                        </td>
+                        <td width="34%"><span class="text-muted">For now, maybe display all your accounts on the dashboard. That's the best way
+                            to see all of your upcoming transactions a mile away. But for some accounts, you'll find you rarely make changes.
+                            For example, you might own a house or other real estate, and just want to update the appraised value from time to
+                            time. In that case, you might not want it cluttering up the dashboard.</span></td>
+                    </tr>
+                    <tr>
+                        <td width="33%">
+                            @Html.LabelFor(model => model.IsClosed, htmlAttributes: new { @class = "control-label" })
+                        </td>
+                        <td width="33%">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.IsClosed)
+                                @Html.ValidationMessageFor(model => model.IsClosed, "", new { @class = "text-danger" })
+                            </div>
+                        </td>
+                        <td width="34%"><span class="text-muted">Most accounts will be open right now, unless you're adding historical data.</span></td>
+                    </tr>
+                    <tr>
+                        <td class="categories" colspan="3">
+                            <div class="text-muted">Now you can associate categories that apply to transactions in this account. You can check
+                            them all off if you want, or uncheck any that won't ever apply to this account.</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="categories">
+                            @{
+                                var groupBreak1 = (Model.Categories.Count / 3) + (Model.Categories.Count % 3 > 0 ? 1: 0);
+                                var groupBreak2 = 2 * (Model.Categories.Count / 3) + (Model.Categories.Count % 3 > 1 ? 1 : 0);
+                            }
+                                @for (var i = 0; i < groupBreak1; i++)
+                                {
+                                    @Html.HiddenFor(m => m.Categories[i].SelectionId)
+                                    @Html.HiddenFor(m => m.Categories[i].SelectionName)
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(m => m.Categories[i].IsChecked)
+                                            @Html.DisplayFor(m => m.Categories[i].SelectionName)
+                                        </label>
+                                    </div>
+                                }
+                            </td>
+                            <td class="categories">
+                                @for (var i = groupBreak1; i < groupBreak2; i++)
+                                {
+                                @Html.HiddenFor(m => m.Categories[i].SelectionId)
+                                @Html.HiddenFor(m => m.Categories[i].SelectionName)
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.CheckBoxFor(m => m.Categories[i].IsChecked)
+                                        @Html.DisplayFor(m => m.Categories[i].SelectionName)
+                                    </label>
+                                </div>
+                                }
+                            </td>
+                            <td class="categories">
+                                @for (var i = groupBreak2; i < Model.Categories.Count(); i++)
+                                {
+                                @Html.HiddenFor(m => m.Categories[i].SelectionId)
+                                @Html.HiddenFor(m => m.Categories[i].SelectionName)
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.CheckBoxFor(m => m.Categories[i].IsChecked)
+                                        @Html.DisplayFor(m => m.Categories[i].SelectionName)
+                                    </label>
+                                </div>
+                                }
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+
+        <div class="form-group">
+            <div class="col-md-offset-9 col-md-3">
+                <input type="submit" value="Next Step" class="btn btn-default" />
+            </div>
+        </div>
+    }
+    <div class="clearfix"></div>
+</div>

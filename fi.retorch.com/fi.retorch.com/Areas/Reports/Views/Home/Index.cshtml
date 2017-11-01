@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Reports";
+}
+
+<h2>Reports</h2>
+
+<h4>Budget Review</h4>
+<ul class="">
+    <li>@Html.ActionLink("Monthly", "Monthly", "BudgetReview")</li>
+    <li>@Html.ActionLink("Annual", "Annual", "BudgetReview")</li>
+</ul>
+
+<h4>Net Worth</h4>
+<ul class="">
+    <li>@Html.ActionLink("Monthly Changes", "Monthly", "NetWorth")</li>
+    <li>@Html.ActionLink("Annual Changes", "Annual", "NetWorth")</li>
+    <li>@Html.ActionLink("Daily Snapshot", "Index", "NetWorth")</li>
+</ul>

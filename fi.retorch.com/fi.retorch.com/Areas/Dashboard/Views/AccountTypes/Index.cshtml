@@ -1,0 +1,50 @@
+﻿@model IEnumerable<fi.retorch.com.Areas.Dashboard.Models.AccountTypeModel>
+
+@{
+    ViewBag.Title = "Account Types";
+}
+
+<h2>Account Types</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDebt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PositiveText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NegativeText)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <th>
+            @Html.DisplayFor(modelItem => item.IsDebt)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.PositiveText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NegativeText)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

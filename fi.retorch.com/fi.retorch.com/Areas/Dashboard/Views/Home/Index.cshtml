@@ -1,0 +1,93 @@
+﻿@model fi.retorch.com.Areas.Dashboard.Models.DashboardModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+@section Scripts {
+@*<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+<script src="~/Scripts/masonry.pkgd.min.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/fi/fi.objects.js"></script>
+<script src="~/Scripts/fi/fi.accounts.js"></script>
+<script src="~/Scripts/fi/fi.transactions.js"></script>
+<script src="~/Scripts/fi/fi.reminders.js"></script>
+<script src="~/Scripts/fi/fi.dashboard.js"></script>
+<script type="text/javascript">
+    $(function () {
+        fi.dashboard.setup();
+    });
+</script>
+}
+
+@*<h2>Dashboard</h2>*@
+
+<div class="dashboard">
+    <div class="settings row">
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.StartDate, new { id = "startDate", @class = "form-control datepicker", Value = String.Format("{0:MM/dd/yyyy}", Model.StartDate), title = Html.DisplayNameFor(m => m.StartDate) })
+            @Html.TextBoxFor(m => m.EndDate, new { id = "endDate", @class = "form-control datepicker", Value = String.Format("{0:MM/dd/yyyy}", Model.EndDate), title = Html.DisplayNameFor(m => m.EndDate) })
+            @*<label>Previous Days</label>
+            <select id="recallDays">
+                <option value="7">7</option>
+                <option value="30">30</option>
+            </select>
+            <label>Months Ahead</label>
+            <select id="forecastMonths">
+                @for (var i = 2; i <= 24; i += 2)
+                {
+                    @:<option value="@i">@i</option>
+                }
+            </select>*@
+        </div>
+        <div class="col-md-4">
+            <a href="@Url.Action("Create", "Transactions")" modal-url="@Url.Action("Create", "Transactions")" id="add-transaction-button" class="btn btn-primary">Add Transaction</a>
+            <a href="@Url.Action("Create", "Reminders")" modal-url="@Url.Action("Create", "Reminders")" id="add-reminder-button" class="btn btn-primary">Add Reminder</a>
+            </div>
+            @if (Model.ShowBookmarks)
+            {
+                <div id="bookmarkContainer" class="col-md-4">
+                    <a href="#" id="show-bookmarks-button" class="btn btn-info">Bookmarks</a>
+                    <div id="bookmarkList" style="display:none">
+                        @foreach (var bookmark in Model.Bookmarks.Items)
+                        {
+                            <div><a href="@bookmark.URL" class="bookmark-link">@bookmark.Text</a></div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+@if (Model.Accounts == null || Model.Accounts.Count == 0)
+{
+    <div id="no-accounts-message" class="alert alert-info">
+        <p>No accounts found. @Html.ActionLink("Create an account", "Create", "Accounts").</p> @* TODO UPDATE TO Wizard Step 4 *@
+    </div>
+}
+else
+{
+    <div class="grid">
+        @foreach (var item in Model.Accounts)
+        {
+            <div class="account grid-item @(item.IsDebt ? "debt" : "asset")" data-val="@Html.DisplayFor(modelItem => item.Id)" data-bal="@(String.Format("{0:0.00}", item.CurrentBalance))">
+                <div class="accountTitle row">
+                    <span class="col-xs-8 accountName">@Html.DisplayFor(modelItem => item.Name)</span>
+                    <span class="col-xs-4 accountBalance currency">@Html.DisplayFor(modelItem => item.CurrentBalance)</span>
+                </div>
+                <div class="transactions"></div>
+            </div>
+        }
+        <div class="clearfix"></div>
+    </div>
+}
+</div>
+
+@*<div class="modal hide fade in" id="add-reminder">
+    <div id="add-reminder-container" class="modal-dialog"></div>
+</div>*@
+
+<div class="modal hide fade in bootstrap-dialog type-primary" id="reusableModal">
+    <div class="modal-content">
+        <div id="reusableModal-container" class="modal-dialog"></div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+﻿@model fi.retorch.com.Areas.Dashboard.Models.TransactionModel
+
+@{
+    ViewBag.Title = "Transactions";
+}
+
+@section Scripts {
+    <script src="~/Scripts/fi/fi.transactions.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            fi.transactions.setupAddEdit();
+        });
+    </script>
+}
+
+<h2>Transactions</h2>
+
+<h4>Edit</h4>
+
+@{
+    Html.RenderPartial("_Edit", Model);
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

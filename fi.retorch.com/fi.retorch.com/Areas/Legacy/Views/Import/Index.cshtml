@@ -1,0 +1,57 @@
+﻿@model fi.retorch.com.Areas.Legacy.Models.LoginModel
+@{
+    ViewBag.Title = "Import";
+}
+
+@section Scripts {
+<script src="~/Scripts/fi/fi.legacy.import.js"></script>
+<script type="text/javascript">
+    $(function () {
+        fi.legacy.import.setup();
+    });
+</script>
+}
+<h2>Import</h2>
+
+@if (!Model.Authorized)
+{
+    using (Html.BeginForm("Login", "Import", FormMethod.Post, new { name = "form", @class = "frmLogin" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <h4>Create</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @PlaceHolder = "Enter Your Legacy Username." })
+                @Html.ValidationMessageFor(model => model.Username)
+            </div>
+
+            <div class="form-group">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @PlaceHolder = "Enter Your Legacy Password." })
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+}
+<div id="loginSuccess" class="@(Model.Authorized ? "" : "hide")">
+    <p>Your login was successful. <a href="#" id="btnImport">Click here</a> to begin import</p>
+</div>
+
+<div class="status">
+    <div id="bookmarkStatus" class="hide">Importing bookmarks...</div>
+    <div id="categoryStatus" class="hide">Importing categories...</div>
+    <div id="accountStatus" class="hide">Importing accounts...</div>
+    <div id="accountCategoryStatus" class="hide">Importing account categories...</div>
+    <div id="reminderStatus" class="hide">Importing reminders...</div>
+    <div id="transactionStatus" class="hide">Importing transactions...</div>
+</div>
+
+<div id="done" class="hide">OK! Everything's done!</div>
