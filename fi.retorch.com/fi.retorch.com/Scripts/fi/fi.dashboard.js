@@ -171,7 +171,7 @@ fi.dashboard = {
     {
         var account = fi.dashboard.getAccount(accountId);
 
-        // prase reminders
+        // parse reminders
         $(account.reminders).each(function () {
             fi.reminders.addReminder(account, this);
         });
@@ -224,7 +224,7 @@ fi.dashboard = {
     },
     setup: function () {
         var startDate = new Date();
-        startDate.setDate(startDate.getDate() - 31);
+        startDate.setDate(startDate.getDate() - 45);
         $('#startDate').datepicker({
             dateFormat: 'mm/dd/yyyy',
             startDate: startDate,

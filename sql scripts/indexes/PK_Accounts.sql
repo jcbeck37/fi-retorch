@@ -1,0 +1,17 @@
+USE [fi.retorch.com]
+GO
+
+/****** Object:  Index [PK_Accounts]    Script Date: 3/2/2017 8:20:13 PM ******/
+ALTER TABLE [dbo].[Accounts]
+
+DROP CONSTRAINT [PK_Accounts]
+GO
+
+ALTER TABLE [dbo].[Accounts] ADD  CONSTRAINT [PK_Accounts] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC,
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+

@@ -113,9 +113,10 @@ namespace fi.retorch.com.Areas.Dashboard.Models
             // get all matching transactions
             var data = from r in db.Reminders
                        join a in db.Accounts on r.AccountId equals a.Id
+                       join t in db.AccountTypes on a.TypeId equals t.Id
                        where a.UserId == userKey && a.IsDisplayed
                        join s in db.ReminderSchedules on r.ScheduleId equals s.Id
-                       select new ReminderEntity { Reminder = r, Account = a, Schedule = s };
+                       select new ReminderEntity { Reminder = r, Account = a, AccountType = t, Schedule = s };
 
             data.ToList().ForEach(d => list.Items.Add(ReminderModel.ConvertDataToModel(d)));
 
@@ -290,6 +291,7 @@ namespace fi.retorch.com.Areas.Dashboard.Models
                 model.Amount = data.Reminder.Amount;
                 model.AmountFormatted = data.Reminder.Amount.ToString();
                 model.Rate = data.Reminder.Rate;
+                model.RateFormatted = data.Reminder.Rate.ToString();
                 model.LastDate = data.Reminder.LastDate;
 
                 if (model.Rate.HasValue)

@@ -70,7 +70,7 @@
                 @Html.ActionLink("Display Date", "Index", new { Sort = ViewBag.DateSortParm })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PagedItems.FirstOrDefault().Amount)
+                @Html.ActionLink("Amount", "Index", new { Sort = ViewBag.AmountSortParm })
             </th>
             <th>
                 @Html.ActionLink("Name", "Index", new { Sort = ViewBag.NameSortParm })
