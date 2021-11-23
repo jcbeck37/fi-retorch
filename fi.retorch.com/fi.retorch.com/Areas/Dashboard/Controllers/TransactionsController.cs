@@ -24,7 +24,7 @@ namespace fi.retorch.com.Areas.Dashboard.Controllers
             
             settings.Page = page;
             settings.Search = settings.Search ?? settings.Filter;
-            settings.Sort = sort;
+            settings.Sort = sort ?? settings.Sort;
 
             TempData[TempDataKeyTransactionQuerySettings] = settings;
 
@@ -62,6 +62,7 @@ namespace fi.retorch.com.Areas.Dashboard.Controllers
             ViewBag.Sort = settings.Sort;
             ViewBag.Filter = settings.Search;
             ViewBag.NameSortParm = settings.Sort == "Name" ? "NameDesc" : "Name";
+            ViewBag.AmountSortParm = settings.Sort == "Amount" ? "AmountDesc" : "Amount";
             ViewBag.DateSortParm = String.IsNullOrEmpty(settings.Sort) ? "DisplayDate" : "";
 
             return model;

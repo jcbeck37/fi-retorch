@@ -62,6 +62,9 @@ fi.objects = {
 
         return Math.floor((utc2 - utc1) / _MS_PER_DAY);
     },
+    daysInMonth: function(month, year) {
+        return new Date(year, month+1, 0).getDate();
+    },
     formatCurrency: function (selector, digits) {
         digits = (digits == null ? 2 : digits);
         var value = $(selector).text();

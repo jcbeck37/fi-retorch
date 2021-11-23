@@ -74,6 +74,12 @@ namespace fi.retorch.com.Areas.Dashboard.Models
             // sort records
             switch (Settings.Sort)
             {
+                case "Amount":
+                    data = data.OrderBy(t => t.Transaction.Amount);
+                    break;
+                case "AmountDesc":
+                    data = data.OrderByDescending(t => t.Transaction.Amount);
+                    break;
                 case "Name":
                     data = data.OrderBy(t => t.Transaction.Name);
                     break;

@@ -28,11 +28,11 @@ namespace fi.retorch.com.Data
         public virtual DbSet<AccountCategory> AccountCategories { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CategoryGroup> CategoryGroups { get; set; }
-        public virtual DbSet<Reminder> Reminders { get; set; }
         public virtual DbSet<ReminderSchedule> ReminderSchedules { get; set; }
         public virtual DbSet<Bookmark> Bookmarks { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<AccountType> AccountTypes { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<Reminder> Reminders { get; set; }
     }
 }

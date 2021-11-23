@@ -56,19 +56,31 @@ fi.reminders = {
 
             // calculate amount from interest
             if (this.item.interestRate != null && this.item.previousBalance != null && this.item.lastStoredDate == null) {
-                if (this.item.date.getDate() > 1) {
+                if (this.item.scheduleId != fi.reminders.schedules.Monthly || this.item.date.getDate() > 1) {
                     var oldDate = new moment(this.item.date).subtract(1, 'months');
                     var days = new moment(this.item.date).diff(oldDate, 'days');
-                    this.item.amount = fi.reminders.calculateSimpleInterest(this.item.previousBalance, this.item.interestRate, this.item.scheduleId, days);
+
+                    this.item.amount = fi.reminders.calculateSimpleInterest(this.item.previousBalance,
+                        this.item.interestRate, this.item.scheduleId, days, this.item.positive);
+
                 } else {
+                    var oldDate = new moment(this.item.date).subtract(1, 'months');
+                    var days = new moment(this.item.date).diff(oldDate, 'days');
+
                     // assume mortgage
-                    this.item.amount = fi.reminders.calculateSimpleInterest(this.item.previousBalance, this.item.interestRate, this.item.scheduleId, 0);
+                    this.item.amount = fi.reminders.calculateSimpleInterest(this.item.previousBalance,
+                        this.item.interestRate, this.item.scheduleId, 0, this.item.positive);
                 }
+            } else if (this.item.interestRate != null) {
+                // unable to calculate interest without previousBalance until we run updateAllBalances
             }
+
+            // css styling
+            var positivityClass = this.item.positive ? 'positive' : 'negative';
 
             // amount
             $(document.createElement('span'))
-                .attr('class', 'amount currency ' + (this.item.positive ? 'positive' : 'negative'))
+                .attr('class', 'amount currency ' + positivityClass)
                 .text(this.item.amount)
                 .appendTo(this.markup);
 
@@ -124,7 +136,7 @@ fi.reminders = {
         var accumulated = months * total * interest;
         return accumulated.toFixed(2);
     },
-    calculateSimpleInterest: function (balance, rate, schedule, days) {
+    calculateSimpleInterest: function (balance, rate, schedule, days, positive) {
         var accumulated = 0;
         switch (schedule) {
             case fi.reminders.schedules.Daily: //'Daily':
@@ -157,7 +169,8 @@ fi.reminders = {
                 accumulated = fi.reminders.calculateMonthlyInterest(balance, rate, 12);
                 break;
         }
-        return accumulated;
+        totalInterest = (positive ? 1 : -1) * accumulated
+        return totalInterest;
     },
     calculateInterestAmount: function (account, reminder) {
         var item = reminder.item;
@@ -165,18 +178,25 @@ fi.reminders = {
         // first item will use previous balance, all others calculate here
         if (item.lastStoredDate != null) {
             var oldBalance = 0;
-            var itemBalance = 0;
             for (var j = 0; j < account.objects.length; j++) {
+                // ignore anything after this reminder date
                 if (account.objects[j].item.date > item.date)
                     break;
 
-                // get first transaction since then
-                if (account.objects[j].item.date >= item.lastStoredDate && oldBalance == 0) {
+                // if it's the same date as last stored date, grab the date and overwrite any oldBalance so far
+                if (fi.objects.dateDiffInDays(account.objects[j].item.date, item.lastStoredDate) == 0) {
+                    oldBalance = account.objects[j].resultBalance;
+                }
+
+                // get first transaction since the last stored date if we still don't have one
+                if (account.objects[j].item.date > item.lastStoredDate && oldBalance == 0) {
+                    // this is the first thing that happened since the last reminder, apparently
                     oldBalance = account.objects[j].resultBalance;
 
                     // remove transaction if between now and last reminder
-                    if (account.objects[j].item.date > item.lastStoredDate)
-                        oldBalance -= item.amount;
+                    if (account.objects[j].item.date > item.lastStoredDate) {
+                        oldBalance -= account.objects[j].item.amount;
+                    }
                 }
             }
 
@@ -186,12 +206,23 @@ fi.reminders = {
 
             // finally calculate interest
             var days = 0;
-            if (reminder.scheduleId == fi.reminders.schedules.Monthly && item.date.getDate() > 1) {
+            if (item.scheduleId == fi.reminders.schedules.Monthly && item.date.getDate() > 1) {
                 var oldDate = new Date(item.date);
-                oldDate.setMonth(oldDate.getMonth() - 1);
+
+                // for situations like February, April, June and November, setMonth tries to use day 31 and rolls into a new month
+                var daysLastMonth = fi.objects.daysInMonth(oldDate.getMonth() - 1, oldDate.getYear());
+                var daysThisMonth = fi.objects.daysInMonth(item.date.getMonth(), item.date.getYear());
+                if (daysLastMonth < daysThisMonth && daysLastMonth < oldDate.getDate()) {
+                    oldDate.setMonth(oldDate.getMonth() - 1, daysLastMonth);
+                } else {
+                    oldDate.setMonth(oldDate.getMonth() - 1);
+                }
+
                 days = fi.objects.dateDiffInDays(oldDate, item.date); // only used for monthly
             }
-            item.amount = fi.reminders.calculateSimpleInterest(item.previousBalance, item.interestRate, item.scheduleId, days);
+
+            item.amount = fi.reminders.calculateSimpleInterest(item.previousBalance, item.interestRate,
+                item.scheduleId, days, item.positive);
 
             var amount = reminder.markup.find('.amount');
             amount.text(item.amount).removeClass('negative');
@@ -203,14 +234,14 @@ fi.reminders = {
         // find spot to place it
         var insertIndex = 0;
         var nextItem = null;
-        var prevItem = null;
+        //var prevItem = null;
         for (var i = 0; i < account.objects.length; i++) {
             if (account.isItemJustBeforeComparisonItem(item, account.objects[i].item)) {
                 nextItem = account.objects[i];
                 insertIndex = i;
                 break;
             } else {
-                prevItem = account.objects[i];
+                //prevItem = account.objects[i];
                 insertIndex++;
             }
         }
@@ -341,7 +372,8 @@ fi.reminders = {
             checkDay.setDate(checkDay.getDate() + 1);
             if (checkDay.getMonth() != previousDay.getMonth()) {
                 // reset as last day of next month
-                nextDay.setMonth(nextDay.getMonth() + 2);
+                var newMonth = nextDay.getMonth() + increment + 1;
+                nextDay.setMonth(newMonth, 1);
                 nextDay.setDate(0);
             } else {
                 nextDay.setMonth(nextDay.getMonth() + increment);
@@ -453,9 +485,9 @@ fi.reminders = {
         // delete all instances
         $(account.markup).find('.reminder[data-val=' + reminder.item.dataId + ']').remove();
     },
-    editReminder: function (account, reminder, result) {
+    editReminder: function (oldAccount, account, reminder, result) {
         // delete all instances
-        fi.reminders.deleteReminder(account, reminder);
+        fi.reminders.deleteReminder(oldAccount, reminder);
 
         // re-add all instances
         account.reminders.push(result);
@@ -465,6 +497,7 @@ fi.reminders = {
         fi.dashboard.finalFormatting();
     },
     setupEdit: function (reminderLink, reminder) {
+        var initialAccountId = reminder.item.accountId;
         fi.dashboard.setupModal(reminderLink, 'frmRemindersEdit',
             function () {
                 // usual edit setup
@@ -489,10 +522,11 @@ fi.reminders = {
                     return false;
                 });
             }, function (result) {
+                var oldAccount = fi.dashboard.getAccount(initialAccountId);
                 var account = fi.dashboard.getAccount(result.AccountId);
 
                 // remove reminder and update balances
-                fi.reminders.editReminder(account, reminder, result);
+                fi.reminders.editReminder(oldAccount, account, reminder, result);
 
                 fi.dashboard.finalFormatting();
             });

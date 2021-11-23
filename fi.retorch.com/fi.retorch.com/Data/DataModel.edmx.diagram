@@ -8,12 +8,12 @@
         <EntityTypeShape EntityType="FIModel.AccountCategory" Width="1.5" PointX="4.625" PointY="0.5" />
         <EntityTypeShape EntityType="FIModel.Category" Width="1.5" PointX="2.875" PointY="1.5" />
         <EntityTypeShape EntityType="FIModel.CategoryGroup" Width="1.5" PointX="1.125" PointY="1.5" />
-        <EntityTypeShape EntityType="FIModel.Reminder" Width="1.5" PointX="4.625" PointY="5.625" />
         <EntityTypeShape EntityType="FIModel.ReminderSchedule" Width="1.5" PointX="2.875" PointY="4.625" />
         <EntityTypeShape EntityType="FIModel.Bookmark" Width="1.5" PointX="7.375" PointY="5.75" />
         <EntityTypeShape EntityType="FIModel.Transaction" Width="1.5" PointX="4.625" PointY="2.375" />
         <EntityTypeShape EntityType="FIModel.AccountType" Width="1.5" PointX="8.375" PointY="0.5" />
         <EntityTypeShape EntityType="FIModel.Account" Width="1.5" PointX="6.5" PointY="0.5" />
+        <EntityTypeShape EntityType="FIModel.Reminder" Width="1.5" PointX="4.625" PointY="5.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace fi.retorch.com.Areas.Configuration.Controllers
 {
-    [Authorize]
+    [Authorize] // need to fix ROLE checking and then delete this line
     [RequireHttps]
     public class HomeController : BaseController
     {

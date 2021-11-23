@@ -43,10 +43,12 @@ fi.accounts = {
                 // posted transactions before not
                 if (newItem.posted && !comparisonItem.posted)
                     return true;
+                else if (!newItem.posted && comparisonItem.posted)
+                    return false;
 
                 // once posted, keep that order
-                if (comparePosted && newItem.postedDate < comparisonItem.postedDate)
-                    return true;
+                if (comparePosted)
+                    return (newItem.postedDate < comparisonItem.postedDate);
 
                 // if all else matches, higher id is after
                 if (newItem.dataId < comparisonItem.dataId)
@@ -64,7 +66,11 @@ fi.accounts = {
 
                 // if interest, calculate amount now that balances are set
                 if (item.interestRate != null) {
-                    fi.reminders.calculateInterestAmount(this, this.objects[i]);
+                    // the first item is calculated in fi.reminders.js createMarkup
+                    // otherwise we do it here, but only if there is a lastStoredDate
+                    // TODO: But what if there is no lastStoredDate?
+                    if (item.lastStoredDate != null)
+                        fi.reminders.calculateInterestAmount(this, this.objects[i]);
                 }
 
                 // calculate
@@ -75,6 +81,7 @@ fi.accounts = {
                     this.visibleBalance += parseFloat(item.amount);
                     this.postedBalance += (item.posted ? parseFloat(item.amount) : 0);
                 }
+
                 // apply to markup
                 this.objects[i].updateBalance(this.postedBalance, this.visibleBalance);
             }
@@ -90,7 +97,7 @@ fi.accounts = {
         this.placeItemInAccount = function (item, object) {
             var insertIndex = 0;
             var nextItem = null;
-            var prevItem = null;
+            //var prevItem = null;
 
             for (var i = 0; i < this.objects.length; i++) {
                 if (this.isItemJustBeforeComparisonItem(item, this.objects[i].item)) {
@@ -98,7 +105,7 @@ fi.accounts = {
                     insertIndex = i;
                     break;
                 } else {
-                    prevItem = this.objects[i];
+                    //prevItem = this.objects[i];
                     insertIndex++;
                 }
             }

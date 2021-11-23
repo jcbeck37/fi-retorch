@@ -238,17 +238,16 @@ namespace fi.retorch.com.Areas.Dashboard.Controllers
         #endregion
 
         #region AJAX functions
-        // TODO move all of these into Entity/Models; pass models in AJAX, not data
-        public ActionResult GetAccountCategories(int? Id = null, int? CategoryId = null)
+        public ActionResult GetAccountCategories(int? id = null, int? categoryId = null)
         {
-            var categories = from ac in db.AccountCategories
-                             join c in db.Categories on ac.CategoryId equals c.Id
-                             where c.UserId == userKey && ac.AccountId == Id && (c.IsActive == true || c.Id == CategoryId)
-                             select new { Id = c.Id, Value = c.Name, IsActive = c.IsActive };
-            categories = categories.OrderBy(c => c.Value);
+            var categories = new List<AccountCategoryJson>();
+            if (id.HasValue)
+                categories = AccountEntity.GetAccountCategories(db, userKey, id.Value, categoryId);
+
             return Json(categories.ToArray(), JsonRequestBehavior.AllowGet);
         }
 
+        // TODO move all of these into Entity/Models; pass models in AJAX, not data
         public ActionResult GetAccountType(int? Id = null)
         {
             var type = from at in db.AccountTypes
