@@ -96,10 +96,10 @@ fi.networth.monthly = {
         });
     },
     parseReportData: function (result) {
-        var thisReport = this;
+        //var thisReport = this;
 
         // base parsing
-        fi.networth.parseBaseReportData(result, this.settings.startDate, this.settings.endDate);
+        fi.networth.parseBaseReportData(result);
 
         // store accounts locally
         $(result.Accounts).each(function () {

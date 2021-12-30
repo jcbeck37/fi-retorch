@@ -15,6 +15,7 @@ fi.networth.annual = {
     setStartDate: function () {
         var startDateValue = $('input[name=StartDate]').val();
         fi.networth.annual.settings.startDate = new Date(startDateValue, 0, 1);
+        fi.networth.annual.settings.endDate = new Date(fi.networth.annual.settings.endDate.getFullYear(), 11, 31);
 
         fi.networth.annual.getReportData();
     },
@@ -24,7 +25,7 @@ fi.networth.annual = {
     getEndDate: function () {
         return fi.objects.getCleanDate(fi.networth.annual.settings.endDate);
     },
-    findYear: function (m, y) {
+    findYear: function (y) {
         return $.grep(fi.networth.annual.Years, function (e) {
             return e.Year == y;
         })[0];
@@ -41,16 +42,11 @@ fi.networth.annual = {
     },
     findAccountsThatClosed: function (accountTypeId, y) {
         return $.grep(this.Accounts, function (e) {
-            if (e.data.CurrentBalance == null)
+            if (e.data.CurrentBalance == null || e.data.TypeId != accountTypeId || e.data.DateClosed == null || e.data.CurrentBalance == 0)
                 return false;
 
-            if (e.data.DateClosed != null) {
-                var dateClosed = fi.objects.convertDate(e.data.DateClosed);
-                return e.data.TypeId == accountTypeId
-                    && dateClosed.getFullYear() == y;
-            }
-
-            return false;
+            var dateClosed = fi.objects.convertDate(e.data.DateClosed);
+            return dateClosed.getFullYear() == y;
         });
     },
     findMatchingUpdateRecords: function (accountTypeId, y) {
@@ -93,8 +89,8 @@ fi.networth.annual = {
     parseReportData: function (result) {
         var thisReport = this;
 
-        // base parsing
-        fi.networth.parseBaseReportData(result, this.settings.startDate, this.settings.endDate);
+        // base parsing gets ending balance for each account type
+        fi.networth.parseBaseReportData(result);
 
         // store accounts locally
         $(result.Accounts).each(function () {
@@ -116,13 +112,12 @@ fi.networth.annual = {
                     accountType.RunningTotal += parseFloat(this.CurrentBalance) * (this.IsDebt ? -1 : 1);
                 }
             }
-
         });
 
         // store transactions locally
-        this.UpdateRecords = result.Items;
+        this.UpdateRecords = result.Items.sort((a, b) => (a.Year > b.Year ? 1 : -1));
 
-        // parse month years from records
+        // parse years from records
         $(result.Items).each(function () {
             var record = this;
             var Year = thisReport.findYear(record.Year);
@@ -187,14 +182,14 @@ fi.networth.annual = {
                     type.RunningTotal += parseFloat(this.TransactionTotal);
                 });
 
-                // start with starting balance (or balance after last months changes)
+                // start with starting balance (or balance after last years changes)
                 var newCell = $(document.createElement('td'));
                 newCell.text(type.RunningTotal.toFixed(2)).addClass('currency');
                 if (type.RunningTotal < 0)
                     newCell.addClass('negative');
                 newCell.appendTo(newRow);
 
-                // save transaction adjustments for next months total
+                // save transaction adjustments for next years total
                 annualTotal += parseFloat(type.RunningTotal);
             });
 
@@ -204,7 +199,6 @@ fi.networth.annual = {
             colTotal.text(annualTotal.toFixed(2)).addClass('currency');
             if (annualTotal < 0)
                 colTotal.addClass('negative');
-
 
             failSafe++;
             if (failSafe > 999) {

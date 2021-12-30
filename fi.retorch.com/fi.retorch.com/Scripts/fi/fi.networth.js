@@ -23,7 +23,7 @@ fi.networth = {
             fi.objects.formatCurrency(this, 0);
         })
     },
-    parseBaseReportData: function(result, startDate, endDate) {
+    parseBaseReportData: function(result) {
         // create account type objects with totals
         $(result.AccountTypes).each(function () {
             // group each into Account Types

@@ -29,7 +29,7 @@ namespace fi.retorch.com.Areas.Reports.Models
 
             // gather data
             var query = from typ in db.AccountTypes
-                        where typ.UserId == userKey //&& typ.Id == 7
+                        where typ.UserId == userKey // && typ.Id == 3
                         join act in db.Accounts on typ.Id equals act.TypeId
                         join trns in db.Transactions on act.Id equals trns.AccountId
                         where act.DateOpened <= endDate && (act.DateClosed == null || act.DateClosed >= startDate)
