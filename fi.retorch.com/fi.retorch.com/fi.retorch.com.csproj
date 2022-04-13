@@ -44,7 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Antlr" version="3.5.0.2" targetFramework="net45" />
-    <PackageReference Include="bootstrap" version="4.0.0" targetFramework="net45" />
+    <PackageReference Include="bootstrap" version="4.3.1" targetFramework="net45" />
     <PackageReference Include="CsvHelper" version="2.16.3.0" targetFramework="net45" />
     <PackageReference Include="EntityFramework" version="6.2.0" targetFramework="net45" />
     <PackageReference Include="jQuery" version="3.3.1" targetFramework="net45" />
