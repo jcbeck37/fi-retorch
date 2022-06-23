@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>fi.retorch.com</RootNamespace>
     <AssemblyName>fi.retorch.com</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort>44318</IISExpressSSLPort>
@@ -24,6 +24,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <Use64BitIISExpress />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -72,7 +73,7 @@
     <PackageReference Include="MvcSiteMapProvider.MVC5" version="4.6.22" targetFramework="net45" />
     <PackageReference Include="MvcSiteMapProvider.MVC5.Core" version="4.6.22" targetFramework="net45" />
     <PackageReference Include="MvcSiteMapProvider.Web" version="4.6.22" targetFramework="net45" />
-    <PackageReference Include="Newtonsoft.Json" version="11.0.2" targetFramework="net45" />
+    <PackageReference Include="Newtonsoft.Json" version="13.0.1" targetFramework="net45" />
     <PackageReference Include="Owin" version="1.0" targetFramework="net45" />
     <PackageReference Include="PagedList" version="1.17.0.0" targetFramework="net45" />
     <PackageReference Include="PagedList.Mvc" version="4.5.0.0" targetFramework="net45" />
@@ -91,11 +92,7 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
